@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import { NavigationContainer, useNavigation, DrawerActions } from '@react-navigation/native';
+import React from 'react';
+import { View, Text, Image } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
+import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator, HeaderBackButton, Header } from '@react-navigation/stack';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -14,25 +15,15 @@ const Drawer = createDrawerNavigator();
 const BottomTab = createBottomTabNavigator();
 
 
-const BottomTabComponent = () => {
-  return (
-    <BottomTab.Navigator>
-      <BottomTab.Screen name="Login" component={Login} />
-      <BottomTab.Screen name="Home" component={Home} />
-    </BottomTab.Navigator>
-  );
-}
-
 const DrawerComponent = () => {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen component={BottomTabComponent} name="Main" />
-      {/*
-       * Rest Screens
-       */}
+    <Drawer.Navigator >
+      <Drawer.Screen name="Home" component={Home} />
+      <Drawer.Screen name="Login" component={Login} />
     </Drawer.Navigator>
   );
 };
+
 const HeaderLeft = () => {
   const navigation = useNavigation();
   return (
@@ -52,15 +43,12 @@ export default function Routes() {
   return (
     <Stack.Navigator>
       <Stack.Screen
+        name=" "
+        component={DrawerComponent}
         options={{
           headerLeft: ({ }) => <HeaderLeft />
         }}
-        component={DrawerComponent}
-        name="Drawer"
       />
-      {/*
-         * Rest Screens
-         */}
     </Stack.Navigator>
   );
 };
