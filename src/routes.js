@@ -7,6 +7,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
+
+import Splash from './components/Splash';
 import Home from './pages/Home';
 import Login from './pages/Login';
 
@@ -17,9 +19,14 @@ const BottomTab = createBottomTabNavigator();
 
 const DrawerComponent = () => {
   return (
-    <Drawer.Navigator >
+    <Drawer.Navigator
+      contentOptions={{
+        labelStyle: {
+          fontFamily: 'SomeFont',
+          color: 'white',
+        },
+      }}>
       <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="Login" component={Login} />
     </Drawer.Navigator>
   );
 };
@@ -29,9 +36,7 @@ const HeaderLeft = () => {
   return (
     <View style={{ flexDirection: 'row' }}>
       <TouchableOpacity
-        onPress={() => {
-          navigation.dispatch(DrawerActions.openDrawer());
-        }}>
+        onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
         <Text>Open</Text>
         {/* <Image source={require('./assets/images/icons/drawer.png')} /> */}
       </TouchableOpacity>
@@ -42,13 +47,9 @@ const HeaderLeft = () => {
 export default function Routes() {
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name=" "
-        component={DrawerComponent}
-        options={{
-          headerLeft: ({ }) => <HeaderLeft />
-        }}
-      />
+      {/* <Stack.Screen options={{ headerShown: false }} name="Splash" component={Splash} />r */}
+      <Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
+      <Stack.Screen name="Home" component={DrawerComponent} />
     </Stack.Navigator>
   );
 };

@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.ScrollView.attrs({
-  paddingHorizontal: 10
+  paddingHorizontal: 10,
 })`
   flex: 1;
   margin-top:30;
@@ -29,6 +29,7 @@ export const Logo = styled.Image`
   width: 70%;
   height:150;
   align-self:center;
+  margin-top:40;
 `;
 
 export const Content = styled.View.attrs({
@@ -37,6 +38,7 @@ export const Content = styled.View.attrs({
   background-color: #fff;
   align-items: center;
   justify-content: center;
+  margin-top:25;
 `;
 
 export const Label = styled.Text`
@@ -70,10 +72,10 @@ export const Button = styled.TouchableOpacity`
   width: 50;
   justify-content: center;
   align-items: center;
-  background-color: #1b4263;
+  background-color: #7915c1;
   margin-top: 10;
   border-radius: 50;
-  margin-top: 50;
+  margin-top: 20;
 `;
 
 export const TextButton = styled.Text`

@@ -180,7 +180,7 @@ export const ButtonView = styled.View`
 `;
 
 export const ButtonFilter = styled.TouchableOpacity`
-  background-color: #3aa2eb;
+  background-color: #7915c1;
   width: 80%;
   height: 45;
   border-radius: 8;
