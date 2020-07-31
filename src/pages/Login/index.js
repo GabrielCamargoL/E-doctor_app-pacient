@@ -5,8 +5,8 @@ import {
   AsyncStorage,
   Image,
   ActivityIndicator,
-  KeyboardAvoidingView
-
+  KeyboardAvoidingView,
+  Text
 } from 'react-native';
 
 
@@ -20,7 +20,9 @@ import {
   Button,
   Register,
   TextRecover,
-  Text,
+  LabelContainer,
+  InputLabel,
+  InputContainer,
 } from './styles';
 
 import api from '../../services/api';
@@ -36,8 +38,8 @@ export default function Login({ navigation }) {
   const [load, setLoad] = useState(false);
 
   useEffect(() => {
-
-  }, []);
+    
+  }, [email]);
 
   async function handleLogin() {
     // setLoad(true);
@@ -88,27 +90,42 @@ export default function Login({ navigation }) {
       ) : (
           <>
             <Container>
-              <KeyboardAvoidingView behavior='height'>
+
                 <Logo source={logo} resizeMode="contain" />
+
+
+                <InputContainer>
+                  <LabelContainer>
+                  <Text style={{fontSize:16}}>Email</Text>
+                  </LabelContainer>
+                    <InputLabel 
+                      placeholder="Email ou Usuário"
+                      placeholderTextColor="#A8A8A8"
+                      keyboardType="email-address"
+                      value={email}
+                      onChangeText={setEmail}
+                      />
+                </InputContainer>
+
+                <InputContainer>
+                  <LabelContainer>
+                    <Text style={{fontSize:16}}>
+                      Senha
+                    </Text>
+                  </LabelContainer>
+                    <InputLabel 
+                      placeholder="Senha"
+                      placeholderTextColor="#A8A8A8"
+                      keyboardType="default"
+                      password={true}
+                      value={password}
+                      onChangeText={setPassword}
+                      secureTextEntry={true}
+                      />
+                </InputContainer>
+
+              <KeyboardAvoidingView behavior='height'>
                 <Content>
-                  <Input
-                    placeholder="Email ou Usuário"
-                    placeholderTextColor="#A8A8A8"
-                    keyboardType="email-address"
-                    value={email}
-                    onChangeText={setEmail}
-                  />
-
-                  <Input
-                    placeholder="Senha"
-                    placeholderTextColor="#A8A8A8"
-                    keyboardType="default"
-                    password={true}
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry={true}
-                  />
-
                   <Button onPress={handleLogin}>
                     <Image
                       source={require('../../assets/setadireita.png')}

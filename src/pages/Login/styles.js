@@ -41,11 +41,38 @@ export const Content = styled.View.attrs({
   margin-top:25;
 `;
 
-export const Label = styled.Text`
-  color: #3b5998;
-  font-size: 30;
-  font-family: Roboto-Bold;
-  letter-spacing: 1;
+  export const Label = styled.Text`
+    color: #3b5998;
+    font-size: 30;
+    font-family: Roboto-Bold;
+    letter-spacing: 1;
+  `;
+
+export const InputContainer = styled.View.attrs({
+  paddingHorizontal: 10,
+})`
+  flex: 1;
+  height: 65;
+`;
+
+
+export const LabelContainer = styled.View.attrs({
+  paddingHorizontal: 10,
+})`
+  background-color: #fff;
+  top: 10;
+  left: 25;
+  z-Index: 50;
+  width:20%;
+`;
+
+export const InputLabel = styled.TextInput`
+  border-width: 1;
+  border-color: #000;
+  height: 45;
+  border-radius: 4;
+  padding-left: 10;
+  width: 100%;
 `;
 
 export const Input = styled.TextInput`
@@ -58,6 +85,7 @@ export const Input = styled.TextInput`
   padding-left: 10;
   color: #000;
 `;
+
 
 export const Register = styled.Text`
   margin-top: 20;
