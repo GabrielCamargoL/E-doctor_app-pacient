@@ -1,10 +1,9 @@
-import styled from 'styled-components/native';
+import styled from 'styled-components/native'; 
 
 export const Container = styled.ScrollView.attrs({
   paddingHorizontal: 10,
 })`
   flex: 1;
-  margin-top:30;
   background-color: #fff;
 `;
 
@@ -29,7 +28,8 @@ export const Logo = styled.Image`
   width: 70%;
   height:150;
   align-self:center;
-  margin-top:40;
+  margin-top:80;
+  margin-bottom:20;
 `;
 
 export const Content = styled.View.attrs({
@@ -38,7 +38,7 @@ export const Content = styled.View.attrs({
   background-color: #fff;
   align-items: center;
   justify-content: center;
-  margin-top:25;
+  margin-top:15;
 `;
 
   export const Label = styled.Text`

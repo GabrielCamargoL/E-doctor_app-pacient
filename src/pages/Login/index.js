@@ -134,11 +134,7 @@ export default function Login({ navigation }) {
                   </Button>
                   <Text> Entrar </Text>
 
-                  <TextRecover onPress={() => navigation.navigate('RecoverPassword')}>
-                    Esqueci minha Senha
-                  </TextRecover>
-
-                  <Register onPress={() => navigation.navigate('Register')}>
+                  <Register onPress={() => navigation.navigate('RegisterDoctor')}>
                     Criar uma conta
                   </Register>
                 </Content>
