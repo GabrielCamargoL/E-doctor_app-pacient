@@ -10,6 +10,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import RegisterDoctor from './pages/RegisterDoctor';
+import DetailsDoctor from './pages/DetailsDoctor';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,6 +33,7 @@ export default function Routes() {
     <Stack.Navigator>
       <Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
       <Stack.Screen options={{ title: 'Cadastro de Profissional' }} name="RegisterDoctor" component={RegisterDoctor} />
+      <Stack.Screen options={{ title: 'Detalhes' }} name="DetailsDoctor" component={DetailsDoctor} />
       <Stack.Screen name="Home" component={BottomTab} />
     </Stack.Navigator>
   );
