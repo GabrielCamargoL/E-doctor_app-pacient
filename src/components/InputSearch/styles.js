@@ -16,7 +16,7 @@ export const ViewInput = styled.View`
   background-color: #f8f8f8;
   border-color: #111;
   border-width: 1px;
-  border-radius: 10px;
+  border-radius: 20px;
   margin-left: 20px;
   margin-right: 20px;
   height: 50px;

@@ -22,7 +22,7 @@ export default function InputSearchComponent({
       paddingTop={paddingTop}
       paddingBottom={paddingBottom}>
       <ViewInput>
-        <Icon name='search' size={22} color={'#771a22'} />
+        <Icon name='search' size={22} color={'#111'} />
         <InputSearch
           placeholder="Pesquisar"
           placeholderTextColor={'#000'}

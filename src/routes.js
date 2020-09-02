@@ -33,7 +33,7 @@ export default function Routes() {
     <Stack.Navigator>
       <Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
       <Stack.Screen options={{ title: 'Cadastro de Profissional' }} name="RegisterDoctor" component={RegisterDoctor} />
-      <Stack.Screen options={{ title: 'Detalhes' }} name="DetailsDoctor" component={DetailsDoctor} />
+      <Stack.Screen options={{ headerShown: false }} name="DetailsDoctor" component={DetailsDoctor} />
       <Stack.Screen name="Home" component={BottomTab} />
     </Stack.Navigator>
   );
