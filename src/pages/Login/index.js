@@ -90,10 +90,7 @@ export default function Login({ navigation }) {
       ) : (
           <>
             <Container>
-
                 <Logo source={logo} resizeMode="contain" />
-
-
                 <InputContainer>
                   <LabelContainer>
                   <Text style={{fontSize:16}}>Email</Text>

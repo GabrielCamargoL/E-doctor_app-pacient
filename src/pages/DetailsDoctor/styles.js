@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 //import Lottie from 'lottie-react-native';
+import {colors, fonts} from '../../styles';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -30,7 +31,7 @@ export const SectionCompanyData = styled.View`
 
 export const CompanyRate = styled.Text`
   font-size: 12;
-  color: #7915c1;
+  color: ${colors.primary};
   font-family: Roboto-Bold;
 `;
 
@@ -64,7 +65,7 @@ export const Col = styled.View`
 export const Button = styled.TouchableOpacity`
   height: 56px;
   width: 322px;
-  background-color: #7915c1;
+  background-color: ${colors.primary};
   justify-content: center;
   align-items: center;
   border-radius: 5px;
@@ -89,8 +90,8 @@ export const ButtonText = styled.Text`
 `;
 
 export const FlatButtonText = styled.Text`
-  color: #7915c1;
-  font-size: 16px;
+  color: ${colors.primary};
+  font-size: ${fonts.input};
   font-weight: bold;
   font-family: Roboto-Bold;
   text-transform: capitalize;

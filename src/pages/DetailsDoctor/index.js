@@ -2,6 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import {colors, general, fonts} from '../../styles';
 // import LottieView from 'lottie-react-native';
 
 import {
@@ -55,7 +56,7 @@ export default function DetailsDoctor({navigation}) {
               <HeaderText>Dr. Thiago Henrique</HeaderText>
               <CompanyRate>
                 {Array(5).fill().map(icon => (<>
-                  <Icon name="star" size={14} color={'#7915c1'} />{' '}
+                  <Icon name="star" size={14} color={colors.primary} />{' '}
                 </>))}
                 </CompanyRate>
             </SectionCompanyData>

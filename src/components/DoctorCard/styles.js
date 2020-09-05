@@ -33,8 +33,8 @@ export const Data = styled.View`
 `;
 
 export const NameLabel = styled.Text`
-  font-size: ${fonts.regular};
-  color: ${colors.header}
+  font-size: ${fonts.input};
+  color: ${colors.primary}
 `;
 
 export const SpecialtyLabel = styled.Text`

@@ -1,10 +1,11 @@
 import styled from 'styled-components/native'; 
+import {colors} from '../../styles'
 
 export const Container = styled.ScrollView.attrs({
   paddingHorizontal: 10,
 })`
   flex: 1;
-  background-color: #fff;
+  background-color: ${colors.background};
 `;
 
 export const ViewLoad = styled.View`
@@ -35,7 +36,7 @@ export const Logo = styled.Image`
 export const Content = styled.View.attrs({
   paddingHorizontal: 30,
 })`
-  background-color: #fff;
+  background-color: ${colors.background};
   align-items: center;
   justify-content: center;
   margin-top:15;
@@ -100,7 +101,7 @@ export const Button = styled.TouchableOpacity`
   width: 50;
   justify-content: center;
   align-items: center;
-  background-color: #7915c1;
+  background-color: ${colors.primary};
   margin-top: 10;
   border-radius: 50;
   margin-top: 20;
