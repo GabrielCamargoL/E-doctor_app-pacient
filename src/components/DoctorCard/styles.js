@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {colors, general, fonts} from '../../styles'
 
 export const Container = styled.SafeAreaView.attrs({
   paddingVertical: 30,
@@ -32,8 +33,8 @@ export const Data = styled.View`
 `;
 
 export const NameLabel = styled.Text`
-  font-family: Roboto-Bold;
-  font-size: 16px;
+  font-size: ${fonts.input};
+  color: ${colors.primary}
 `;
 
 export const SpecialtyLabel = styled.Text`
