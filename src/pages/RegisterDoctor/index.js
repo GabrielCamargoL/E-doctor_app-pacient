@@ -28,7 +28,7 @@ export default function RegisterDoctor({ navigation }) {
     <>
       <Container>
         <SubTitle>
-          Dados Pessoal
+          Dados Pessoal.
         </SubTitle>
         <InputContainer>
           <LabelContainer>
