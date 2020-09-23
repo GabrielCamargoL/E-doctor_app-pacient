@@ -5,14 +5,14 @@ export const Container = styled.ScrollView.attrs({
   paddingHorizontal: 20,
 })`
   flex:1;
-  background-color: #fff;
+  background-color:${colors.background};
   margin-top:25px;
 `;
 
 export const OptionsText = styled.Text`
   font-family:Roboto;
   font-weight:700;
-  font-size:16px;
+  font-size:${fonts.regular};
 `;
 
 export const TouchableOptions = styled.TouchableOpacity`

@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {colors,fonts} from './../../styles'
 
 export const Container = styled.ScrollView.attrs({
   paddingHorizontal: 10,
@@ -18,7 +19,7 @@ export const Col = styled.View`
 `;
 
 export const SubTitle = styled.Text`
-  font-size:19;
+  font-size:${fonts.title};
   margin:10px;
 `;
 
@@ -41,7 +42,7 @@ export const LabelContainer = styled.View.attrs({
 `;
 
 export const LabelInput = styled.Text`
-  font-size:16px;
+  font-size:${fonts.input};
   font-weight:600;
   font-family:Roboto;
   margin-left:5px;
@@ -101,9 +102,9 @@ export const ButtonSendView = styled.View`
 export const ButtonSend = styled.TouchableOpacity`
   justify-content:center;
   align-items:center;
-  width: 326px;
+  width: 250px;
   height: 40px;
-  background-color: #ccc;
+  background-color:${colors.primary_40};
   border-radius: 8px;
 `;
 
@@ -125,7 +126,7 @@ export const AccessPhotosButton = styled.TouchableOpacity`
   flex-direction:row;
   justify-content:center;
   align-items:center;
-  background-color:#7915C1;
+  background-color:${colors.primary};
   width:48%;
   height: 55px;
   border:solid;

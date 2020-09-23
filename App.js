@@ -1,5 +1,6 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
+import {colors, general, fonts} from './src/styles';
 
 import { NavigationContainer } from '@react-navigation/native';
 import Routes from './src/routes'
@@ -8,7 +9,7 @@ import Routes from './src/routes'
 export default function navinext() {
   return (
     <NavigationContainer>
-      <StatusBar translucent backgroundColor='#7915c1' />
+      <StatusBar translucent backgroundColor={colors.primary} />
       <Routes/>
     </NavigationContainer>
   );
