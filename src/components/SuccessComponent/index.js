@@ -4,9 +4,9 @@ import { Container, Label, ButtonText, Button } from './styles';
 
 import Lottie from 'lottie-react-native';
 
-import success from '../../assets/success.json';
+import success from './../../assets/success.json';
 
-export default function ErrorRegister({ navigation }) {
+export default function SuccessComponent({ navigation, message }) {
   return (
     <>
       <StatusBar backgroundColor="#FFF" barStyle="light-content" />
@@ -21,7 +21,7 @@ export default function ErrorRegister({ navigation }) {
         />
         <Label>Sucesso!</Label>
         <Label>
-          Seu registro foi computado com sucesso
+          {message}
         </Label>
 
         <Button onPress={() => navigation.navigate('Home')}>

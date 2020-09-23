@@ -25,6 +25,8 @@ import {
   InputContainer,
 } from './styles';
 
+import { colors, general, fonts } from '../../styles';
+
 import api from '../../services/api';
 
 import Lottie from 'lottie-react-native';
@@ -38,7 +40,7 @@ export default function Login({ navigation }) {
   const [load, setLoad] = useState(false);
 
   useEffect(() => {
-    
+
   }, [email]);
 
   async function handleLogin() {
@@ -71,8 +73,6 @@ export default function Login({ navigation }) {
 
   return (
     <>
-      <StatusBar backgroundColor="#7915c1" />
-
       {load ? (
         <>
           <ViewLoad>
@@ -90,36 +90,36 @@ export default function Login({ navigation }) {
       ) : (
           <>
             <Container>
-                <Logo source={logo} resizeMode="contain" />
-                <InputContainer>
-                  <LabelContainer>
-                  <Text style={{fontSize:16}}>Email</Text>
-                  </LabelContainer>
-                    <InputLabel 
-                      placeholder="Email ou Usuário"
-                      placeholderTextColor="#A8A8A8"
-                      keyboardType="email-address"
-                      value={email}
-                      onChangeText={setEmail}
-                      />
-                </InputContainer>
+              <Logo source={logo} resizeMode="contain" />
+              <InputContainer>
+                <LabelContainer>
+                  <Text style={{ fontSize: 16 }}>Email</Text>
+                </LabelContainer>
+                <InputLabel
+                  placeholder="jose@email.com"
+                  placeholderTextColor="#A8A8A8"
+                  keyboardType="email-address"
+                  value={email}
+                  onChangeText={setEmail}
+                />
+              </InputContainer>
 
-                <InputContainer>
-                  <LabelContainer>
-                    <Text style={{fontSize:16}}>
-                      Senha
+              <InputContainer>
+                <LabelContainer>
+                  <Text style={{ fontSize: 16 }}>
+                    Senha
                     </Text>
-                  </LabelContainer>
-                    <InputLabel 
-                      placeholder="Senha"
-                      placeholderTextColor="#A8A8A8"
-                      keyboardType="default"
-                      password={true}
-                      value={password}
-                      onChangeText={setPassword}
-                      secureTextEntry={true}
-                      />
-                </InputContainer>
+                </LabelContainer>
+                <InputLabel
+                  placeholder="*****"
+                  placeholderTextColor="#A8A8A8"
+                  keyboardType="default"
+                  password={true}
+                  value={password}
+                  onChangeText={setPassword}
+                  secureTextEntry={true}
+                />
+              </InputContainer>
 
               <KeyboardAvoidingView behavior='height'>
                 <Content>
@@ -131,7 +131,7 @@ export default function Login({ navigation }) {
                   </Button>
                   <Text> Entrar </Text>
 
-                  <Register onPress={() => navigation.navigate('RegisterDoctor')}>
+                  <Register onPress={() => navigation.navigate('RegisterPatient')}>
                     Criar uma conta
                   </Register>
                 </Content>

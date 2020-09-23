@@ -23,9 +23,7 @@ export default function Home({ navigation }) {
 
   return (
     <>
-      <StatusBar backgroundColor="#7915c1" />
       <Container>
-        <ScrollView>
         <Tabs>
           <Tab
             heading={
@@ -89,8 +87,6 @@ export default function Home({ navigation }) {
           />
           </Tab>
         </Tabs>
-
-        </ScrollView>
       </Container>
 
     </>
