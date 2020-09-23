@@ -131,7 +131,7 @@ export default function Login({ navigation }) {
                   </Button>
                   <Text> Entrar </Text>
 
-                  <Register onPress={() => navigation.navigate('RegisterDoctor')}>
+                  <Register onPress={() => navigation.navigate('RegisterPatient')}>
                     Criar uma conta
                   </Register>
                 </Content>

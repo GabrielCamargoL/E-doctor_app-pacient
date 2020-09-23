@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 export const Container = styled.ScrollView`
   flex: 1;
   background-color: #fff;
+  margin-top:20px;
 `;
 
 export const ViewLoad = styled.View`
