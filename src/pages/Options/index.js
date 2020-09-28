@@ -34,7 +34,7 @@ export default function Options({ navigation }) {
           <OptionsText>Minha Agenda</OptionsText>
         </TouchableOptions>
 
-        <TouchableOptions onPress={() => {}}>
+        <TouchableOptions onPress={() => navigation.navigate('MedicalInfo')}>
           <OptionsText>Ficha médica</OptionsText>
         </TouchableOptions>
 
