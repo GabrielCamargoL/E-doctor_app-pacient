@@ -41,6 +41,10 @@ export default function DetailsDoctor({navigation}) {
     navigation.navigate('Evaluation')
   }
 
+  function handleShedule () {
+    navigation.navigate('Schedule')
+  }
+
   return (
     <>
       <Container>
@@ -79,7 +83,7 @@ export default function DetailsDoctor({navigation}) {
             </Row>
             <Row>
               <Col>
-                <Button onPress={() => {}}>
+                <Button onPress={() => {handleShedule()}}>
                   <ButtonText>solicitar agendamento</ButtonText>
                 </Button>
               </Col>
