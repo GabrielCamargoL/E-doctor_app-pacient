@@ -11,6 +11,8 @@ import Login from './pages/Login';
 
 import Home from './pages/Home';
 import Options from './pages/Options';
+import Evaluation from './pages/Evaluation';
+
 
 import RegisterPatient from './pages/RegisterPatient';
 import RegisterStep2 from './pages/RegisterPatient/RegisterStep2';
@@ -67,6 +69,11 @@ export default function Routes() {
         name="Home" 
         component={BottomTab} 
       />
+      <Stack.Screen 
+        options={{ headerShown: false }} 
+        name="Evaluation" 
+        component={Evaluation} 
+      />      
     </Stack.Navigator>
   );
 };
