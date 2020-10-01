@@ -26,7 +26,7 @@ export default function Options({ navigation }) {
           <OptionsText>Prescrição</OptionsText>
         </TouchableOptions>
 
-        <TouchableOptions onPress={() => {}}>
+        <TouchableOptions onPress={() => navigation.navigate('RegisterDependent')}>
           <OptionsText>Dependentes</OptionsText>
         </TouchableOptions>
 

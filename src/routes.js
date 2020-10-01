@@ -12,13 +12,15 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Options from './pages/Options';
 
-import MedicalInfo from './pages/MedicalInfo';
-
 import RegisterPatient from './pages/RegisterPatient';
 import RegisterStep2 from './pages/RegisterPatient/RegisterStep2';
 import RegisterStep3 from './pages/RegisterPatient/RegisterStep3';
 
 import DetailsDoctor from './pages/DetailsDoctor';
+
+import MedicalInfo from './pages/MedicalInfo';
+
+import RegisterDependent from './pages/RegisterDependent';
 
 
 const Stack = createStackNavigator();
@@ -63,6 +65,11 @@ export default function Routes() {
         options={{ headerShown: false }} 
         name="DetailsDoctor" 
         component={DetailsDoctor} 
+      />
+      <Stack.Screen 
+        options={{ title: 'Dependente' }} 
+        name="RegisterDependent" 
+        component={RegisterDependent} 
       />
        <Stack.Screen 
         options={{ title: 'Ficha Médica' }} 

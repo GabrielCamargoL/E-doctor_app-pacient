@@ -17,7 +17,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import api from '../../services/api';
 import styled from 'styled-components';
 
-export default function MedicalInfo({ navigation }) {
+export default function MedicalInfo({ navigation, route }) {
 
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
@@ -121,7 +121,7 @@ export default function MedicalInfo({ navigation }) {
               <ButtonSaveText>SALVAR</ButtonSaveText>
             </ButtonSave>
         </ButtonSaveView>
-        
+
       </Container>
     </>
   )
