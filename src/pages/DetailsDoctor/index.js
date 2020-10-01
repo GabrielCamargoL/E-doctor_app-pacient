@@ -37,6 +37,14 @@ export default function DetailsDoctor({navigation}) {
     setValue(allowedState)
   }, [])
 
+  function handleEvaluation () {
+    navigation.navigate('Evaluation')
+  }
+
+  function handleShedule () {
+    navigation.navigate('Schedule')
+  }
+
   return (
     <>
       <Container>
@@ -62,7 +70,7 @@ export default function DetailsDoctor({navigation}) {
             </SectionCompanyData>
             <SectionCompanyData>
               <HeaderText>Nome do consultório</HeaderText>
-              <FlatButton>
+              <FlatButton onPress={() => handleEvaluation()}>
                 <FlatButtonText>Avaliações</FlatButtonText>
               </FlatButton>
             </SectionCompanyData>
@@ -75,7 +83,7 @@ export default function DetailsDoctor({navigation}) {
             </Row>
             <Row>
               <Col>
-                <Button onPress={() => {}}>
+                <Button onPress={() => {handleShedule()}}>
                   <ButtonText>solicitar agendamento</ButtonText>
                 </Button>
               </Col>
