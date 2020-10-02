@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import {
   Container,
+  Col,
   Row,
   SubTitle,
   LabelInput,
@@ -12,8 +13,7 @@ import {
   ButtonAdvanceText,
 } from './styles';
 
-import { Text, View, StyleSheet, Button } from 'react-native';
-//import { CheckBox } from '@react-native-community/checkbox';
+import { Text, View, StyleSheet, Button, CheckBox } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import api from '../../services/api';
@@ -50,8 +50,13 @@ export default function RegisterDependent({ navigation, routes }) {
             />
           </InputContainer>
         </Row>
-        <LabelInput> Possuí CPF? </LabelInput>
-              
+        <Row style={{ alignItems: 'center' }}>
+      
+            <LabelInput> Possuí CPF? </LabelInput> 
+            <CheckBox value={checkboxCpf} onValueChange={setCheckboxCpf} /> 
+        
+        </Row>
+                    
         <Row>
           <InputContainer>
             <LabelInput>CPF</LabelInput>
