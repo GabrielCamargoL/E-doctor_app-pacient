@@ -18,7 +18,7 @@ export default function Options({ navigation }) {
   return(
     <>
       <Container>
-        <TouchableOptions onPress={() => {}}>
+        <TouchableOptions onPress={() => navigation.navigate('ProfilePatient')}>
           <OptionsText>Perfil</OptionsText>
         </TouchableOptions>
 
@@ -26,7 +26,7 @@ export default function Options({ navigation }) {
           <OptionsText>Prescrição</OptionsText>
         </TouchableOptions>
 
-        <TouchableOptions onPress={() => {}}>
+        <TouchableOptions onPress={() => navigation.navigate('RegisterDependent')}>
           <OptionsText>Dependentes</OptionsText>
         </TouchableOptions>
 
@@ -34,7 +34,7 @@ export default function Options({ navigation }) {
           <OptionsText>Minha Agenda</OptionsText>
         </TouchableOptions>
 
-        <TouchableOptions onPress={() => {}}>
+        <TouchableOptions onPress={() => navigation.navigate('MedicalInfo')}>
           <OptionsText>Ficha médica</OptionsText>
         </TouchableOptions>
 
