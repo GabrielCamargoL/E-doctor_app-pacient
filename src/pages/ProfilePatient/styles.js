@@ -1,17 +1,17 @@
 import styled from 'styled-components/native';
-import {colors,fonts} from '../../styles'
+import {colors,fonts} from './../../styles'
 
 export const Container = styled.ScrollView.attrs({
   paddingHorizontal: 10,
 })`
   flex:1;
-  background-color: #FFF;
+  background-color: #fff;
 `;
 
 export const Row = styled.View`
     flex-direction: row;
     width:100%;
-    margin-top:15px;
+    margin-top:10px;
 `;
 
 export const Col = styled.View`
@@ -20,7 +20,9 @@ export const Col = styled.View`
 
 export const SubTitle = styled.Text`
   font-size:${fonts.title};
-  margin:10px;
+  align-self: center;
+  margin-top:15%;
+  margin-bottom:8%;
 `;
 
 export const InputContainer = styled.View.attrs({
@@ -34,7 +36,7 @@ export const InputContainer = styled.View.attrs({
 export const LabelContainer = styled.View.attrs({
   paddingHorizontal: 10,
 })`
-  background-color: #FFF;
+  background-color: #fff;
   top: 10;
   left: 25;
   z-Index: 50;
@@ -52,19 +54,37 @@ export const InputLabel = styled.TextInput`
   border-width: 1px;
   border-color: #000;
   height: 40px;
-  border-radius: 10px;  
+  border-radius: 10px;
   padding-left: 10px;
   width: 100%;
   margin-bottom:20px;
   margin-top:5px;
 `;
 
-export const ButtonAdvanceView = styled.View`
-  align-self: center;
-  margin-top:40%;
+export const ChangeData = styled.Text`
+  font-size:18px;
+  font-weight:bold;
+  color: #000;
+  margin-bottom: 20%;
 `;
 
-export const ButtonAdvance = styled.TouchableOpacity`
+export const ButtonContainer = styled.View`
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right:15;
+`;
+
+export const ButtonEditView = styled.View`
+  align-self: center;
+  margin-top:15%;
+`;
+
+export const ButtonEdit1View = styled.View`
+  align-self: center;
+  margin-top:45%;
+`;
+
+export const ButtonEdit = styled.TouchableOpacity`
   justify-content:center;
   align-items:center;
   width: 180px;
@@ -73,11 +93,9 @@ export const ButtonAdvance = styled.TouchableOpacity`
   border-radius: 8px;
 `;
 
-export const ButtonAdvanceText = styled.Text`
+export const ButtonEditText = styled.Text`
   font-size:17px;
   font-weight:bold;
   text-align:center;
   color: #FFF;
 `;
-
-        

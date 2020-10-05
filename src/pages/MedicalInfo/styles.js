@@ -74,7 +74,7 @@ export const ButtonSave = styled.TouchableOpacity`
 `;
 
 export const ButtonSaveText = styled.Text`
-  font-size:15px;
+  font-size:17px;
   font-weight:bold;
   text-align:center;
   color: #FFF;

@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './pages/Login';
 
+
 import Home from './pages/Home';
 import Options from './pages/Options';
 import Evaluation from './pages/Evaluation';
@@ -23,6 +24,9 @@ import DetailsDoctor from './pages/DetailsDoctor';
 import MedicalInfo from './pages/MedicalInfo';
 
 import RegisterDependent from './pages/RegisterDependent';
+
+import ProfilePatient from './pages/ProfilePatient';
+import EditPassword from './pages/ProfilePatient/EditPassword';
 
 
 const Stack = createStackNavigator();
@@ -67,6 +71,16 @@ export default function Routes() {
         options={{ headerShown: false }} 
         name="DetailsDoctor" 
         component={DetailsDoctor} 
+      />
+      <Stack.Screen 
+        options={{ title: 'Perfil' }} 
+        name="ProfilePatient" 
+        component={ProfilePatient} 
+      />
+      <Stack.Screen 
+        options={{ title: '' }} 
+        name="EditPassword" 
+        component={EditPassword} 
       />
       <Stack.Screen 
         options={{ title: 'Dependente' }} 

@@ -51,12 +51,10 @@ export default function RegisterDependent({ navigation, routes }) {
           </InputContainer>
         </Row>
         <Row style={{ alignItems: 'center' }}>
-      
-            <LabelInput> Possuí CPF? </LabelInput> 
-            <CheckBox value={checkboxCpf} onValueChange={setCheckboxCpf} /> 
-        
-        </Row>
-                    
+          <LabelInput> Possuí CPF? </LabelInput> 
+          <CheckBox value={checkboxCpf} onValueChange={setCheckboxCpf} /> 
+        </Row>  
+                          
         <Row>
           <InputContainer>
             <LabelInput>CPF</LabelInput>

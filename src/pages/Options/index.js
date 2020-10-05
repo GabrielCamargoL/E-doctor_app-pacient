@@ -18,7 +18,7 @@ export default function Options({ navigation }) {
   return(
     <>
       <Container>
-        <TouchableOptions onPress={() => {}}>
+        <TouchableOptions onPress={() => navigation.navigate('ProfilePatient')}>
           <OptionsText>Perfil</OptionsText>
         </TouchableOptions>
 
