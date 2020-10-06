@@ -101,6 +101,7 @@ export default function DetailsDoctor({navigation}) {
         visible={showModal}
         justifyContent={'center'}
         onClose={() => setShowModal(false)}
+        navigation={navigation}
       />
     </>
   );

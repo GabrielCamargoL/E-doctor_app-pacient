@@ -18,6 +18,7 @@ const ModalMedicalInfo =  ({
   isActive = false,
   visible,
   onClose,
+  navigation
 }) => {
   const options = [{ key: true, value: 'Sim' }, { key: false, value: 'Não' }]
 
@@ -25,14 +26,19 @@ const ModalMedicalInfo =  ({
     onClose();
   };
 
+  const handleMedicalInfo = () => {
+    onClose();
+    navigation.navigate('MedicalInfo')
+  };
+
   return (
     <Modal 
       visible={visible}
-      height="98%"
+      height="88%"
       onClose={onClose ? () => handleClose() : null}>
         <Container>
         <Label>Ficha médica não{"\n"} preenchida, deseja completar ?</Label>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={() => {handleMedicalInfo()}}>
         <Row>   
           <Circle>
             <Label>
@@ -42,7 +48,7 @@ const ModalMedicalInfo =  ({
           <AddLabel>Adicionar</AddLabel>          
         </Row>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={() => {handleClose()}}>
           <Label style={{borderBottomWidth: 0.5}}>Continuar Mesmo Assim</Label>
         </TouchableOpacity>
         </Container>
