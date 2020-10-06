@@ -22,10 +22,13 @@ import {
 import HeaderCheckout from '../../components/HeaderCheckout';
 
 import api from '../../services/api';
+import ModalMedicalInfo from '../../components/ModalMedicalInfo'
 
 export default function DetailsDoctor({navigation}) {
 
   const [value, setValue] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
 
   const allowedState = [
     { id: 1, name: "Alabama", cargo: 'Doctor' },
@@ -83,13 +86,22 @@ export default function DetailsDoctor({navigation}) {
             </Row>
             <Row>
               <Col>
-                <Button onPress={() => {handleShedule()}}>
+                <Button 
+                // onPress={() => {handleShedule()}}
+                onPress={() => { setShowModal(true);}}
+                >
                   <ButtonText>solicitar agendamento</ButtonText>
                 </Button>
               </Col>
             </Row>
         </ScrollView>
       </Container>
+      <ModalMedicalInfo
+        isActive={true}
+        visible={showModal}
+        justifyContent={'center'}
+        onClose={() => setShowModal(false)}
+      />
     </>
   );
 }
