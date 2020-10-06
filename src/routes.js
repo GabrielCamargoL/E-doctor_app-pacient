@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './pages/Login';
 
+
 import Home from './pages/Home';
 import Options from './pages/Options';
 import Evaluation from './pages/Evaluation';
@@ -20,18 +21,25 @@ import RegisterStep3 from './pages/RegisterPatient/RegisterStep3';
 
 import DetailsDoctor from './pages/DetailsDoctor';
 
+import MedicalInfo from './pages/MedicalInfo';
+
+import RegisterDependent from './pages/RegisterDependent';
+
+import ProfilePatient from './pages/ProfilePatient';
+import EditPassword from './pages/ProfilePatient/EditPassword';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
 
 function BottomTab() {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Buscar" component={Home} />
-      <Tab.Screen name="Consultas" component={Home} />
       <Tab.Screen name="Opções" component={Options} />
-      <Tab.Screen name="Medicamentos" component={Home} />
+
     </Tab.Navigator>
   );
 }
@@ -63,6 +71,26 @@ export default function Routes() {
         options={{ headerShown: false }} 
         name="DetailsDoctor" 
         component={DetailsDoctor} 
+      />
+      <Stack.Screen 
+        options={{ title: 'Perfil' }} 
+        name="ProfilePatient" 
+        component={ProfilePatient} 
+      />
+      <Stack.Screen 
+        options={{ title: '' }} 
+        name="EditPassword" 
+        component={EditPassword} 
+      />
+      <Stack.Screen 
+        options={{ title: 'Dependente' }} 
+        name="RegisterDependent" 
+        component={RegisterDependent} 
+      />
+       <Stack.Screen 
+        options={{ title: 'Ficha Médica' }} 
+        name="MedicalInfo" 
+        component={MedicalInfo} 
       />
       <Stack.Screen 
         options={{ headerShown: false }} 
