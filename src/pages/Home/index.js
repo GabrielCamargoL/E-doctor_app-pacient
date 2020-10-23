@@ -18,6 +18,7 @@ export default function Home({ navigation }) {
 
 
   useEffect(() => {
+    console.log('aaa');
     setValue(allowedState)
   }, [])
 
@@ -91,8 +92,6 @@ export default function Home({ navigation }) {
 
     </>
   );
-
-
 }
 
 const styles = StyleSheet.create({

@@ -87,8 +87,8 @@ export default function DetailsDoctor({navigation}) {
             <Row>
               <Col>
                 <Button 
-                // onPress={() => {handleShedule()}}
-                onPress={() => { setShowModal(true);}}
+                onPress={() => {handleShedule()}}
+                // onPress={() => { setShowModal(true);}}
                 >
                   <ButtonText>solicitar agendamento</ButtonText>
                 </Button>

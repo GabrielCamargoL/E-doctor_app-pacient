@@ -21,6 +21,8 @@ const timeToString = (time) => {
   return date.toISOString().split('T')[0];
 }
 
+import ModalMedicalInfo from '../../components/ModalMedicalInfo'
+
 export default function Shedule({navigation}) {
   const [value, setValue] = useState([]);
   const [daySelected, setDaySelected] = useState('')
@@ -29,7 +31,10 @@ export default function Shedule({navigation}) {
   const workout = { key: 'workout', color: 'green' };
   const [heigth, setHeigth] = useState(0)
   const [items, setItems] = useState({});
+
+  const [showModal, setShowModal] = useState(false);
   
+
   const memoizedValue = useMemo(() => renderItem, [items])
 
   function find_dimesions(layout){
@@ -85,6 +90,10 @@ export default function Shedule({navigation}) {
       </TouchableOpacity>    
   )}
 
+  function handleShedule () {
+    navigation.navigate('Schedule')
+  }
+
   return (
     <>
       <Container onLayout={(event) => {find_dimesions(event.nativeEvent.layout) }}>
@@ -137,11 +146,18 @@ export default function Shedule({navigation}) {
             <HeaderText>HORÁRIO:</HeaderText>
             <HeaderText>06:20 AM</HeaderText>
           </Row>          
-            <Button onPress={() => {}}>
+            <Button  onPress={() => { setShowModal(true);}}>
               <ButtonText>solicitar agendamento</ButtonText>
             </Button>          
         </ScrollView>
       </Container>
+      <ModalMedicalInfo
+        isActive={true}
+        visible={showModal}
+        justifyContent={'center'}
+        onClose={() => setShowModal(false)}
+        navigation={navigation}
+      />
     </>
   );
 }
