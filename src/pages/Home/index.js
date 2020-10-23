@@ -1,26 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { Text, Button, SafeAreaView, ScrollView, StyleSheet, StatusBar } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  Text,
+  Button,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  StatusBar,
+} from 'react-native';
 import {Tabs, TabHeading, Tab} from 'native-base';
-import { Container, Logo, Title, TabMenu} from './styles';
+import {Container, Logo, Title, TabMenu} from './styles';
 import InputSearch from '../../components/InputSearch';
 import DoctorCard from '../../components/DoctorCard';
 import logo3 from '../../assets/home1.png';
 
-
-export default function Home({ navigation }) {
+export default function Home({navigation}) {
   const [value, setValue] = useState([]);
 
   const allowedState = [
-    { id: 1, name: "Alabama", cargo: 'Doctor' },
-    { id: 2, name: "Georgia", cargo: 'Doctor' },
-    { id: 3, name: "Tennessee", cargo: 'Doctor'}
+    {id: 1, name: 'Alabama', cargo: 'Doctor'},
+    {id: 2, name: 'Georgia', cargo: 'Doctor'},
+    {id: 3, name: 'Tennessee', cargo: 'Doctor'},
   ];
-
 
   useEffect(() => {
     console.log('aaa');
-    setValue(allowedState)
-  }, [])
+    setValue(allowedState);
+  }, []);
 
   return (
     <>
@@ -31,7 +36,7 @@ export default function Home({ navigation }) {
               <TabHeading style={styles.tabHeading}>
                 <TabMenu>Médicos</TabMenu>
               </TabHeading>
-          }>
+            }>
             <Title>Conhece o doutor?</Title>
             <InputSearch
               backgroundColor="#f8f8f8"
@@ -40,12 +45,12 @@ export default function Home({ navigation }) {
             />
             <Logo source={logo3} resizeMode="contain" />
 
-          <DoctorCard
-            key={value.id}
-            navigation={navigation}
-            doctorData={value}
-            doctorId={value.id}
-          />
+            <DoctorCard
+              key={value.id}
+              navigation={navigation}
+              doctorData={value}
+              doctorId={value.id}
+            />
           </Tab>
           <Tab
             style={styles.tabs}
@@ -60,12 +65,12 @@ export default function Home({ navigation }) {
               paddingTop={5}
               paddingBottom={1}
             />
-          <DoctorCard
-            key={value.id}
-            navigation={navigation}
-            doctorData={value}
-            doctorId={value.id}
-          />
+            <DoctorCard
+              key={value.id}
+              navigation={navigation}
+              doctorData={value}
+              doctorId={value.id}
+            />
           </Tab>
           <Tab
             style={styles.tabs}
@@ -80,16 +85,15 @@ export default function Home({ navigation }) {
               paddingTop={5}
               paddingBottom={1}
             />
-          <DoctorCard
-            key={value.id}
-            navigation={navigation}
-            doctorData={value}
-            doctorId={value.id}
-          />
+            <DoctorCard
+              key={value.id}
+              navigation={navigation}
+              doctorData={value}
+              doctorId={value.id}
+            />
           </Tab>
         </Tabs>
       </Container>
-
     </>
   );
 }
