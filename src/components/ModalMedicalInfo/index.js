@@ -2,23 +2,24 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 
 import {
-  Container, 
+  Container,
   Row,
-  AddLabel, 
+  AddLabel,
   Label,
   Circle,
-} 
+}
 from './styles';
 
 import Modal from '../Modal';
 
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
-const ModalMedicalInfo =  ({ 
+const ModalMedicalInfo =  ({
   isActive = false,
   visible,
   onClose,
-  navigation
+  navigation,
+  onSuccess
 }) => {
   const options = [{ key: true, value: 'Sim' }, { key: false, value: 'Não' }]
 
@@ -28,33 +29,34 @@ const ModalMedicalInfo =  ({
 
   const handleMedicalInfo = () => {
     onClose();
-    navigation.navigate('MedicalInfo')
+    navigation.navigate('MedicalInfo', {consult: true});
   };
 
   return (
-    <Modal 
+    <Modal
       visible={visible}
       height="88%"
       onClose={onClose ? () => handleClose() : null}>
         <Container>
         <Label>Ficha médica não{"\n"} preenchida, deseja completar ?</Label>
         <TouchableOpacity onPress={() => {handleMedicalInfo()}}>
-        <Row>   
+        <Row>
           <Circle>
             <Label>
-              <Icon name="plus" size={14} color={'#fff'}/>      
+              <Icon name="plus" size={14} color={'#fff'}/>
             </Label>
-          </Circle>          
-          <AddLabel>Adicionar</AddLabel>          
+          </Circle>
+          <AddLabel>Adicionar</AddLabel>
         </Row>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {handleClose()}}>
           <Label style={{borderBottomWidth: 0.5}}>Continuar Mesmo Assim</Label>
         </TouchableOpacity>
         </Container>
-      
+
     </Modal>
-  ) 
+  )
 }
 
 export default ModalMedicalInfo;
+

@@ -3,16 +3,16 @@ import React, {useState, useEffect} from 'react';
 
 import api from '../../services/api';
 import {
-  HeaderContainer,
   ViewLogo,
   HeaderLogo,
-  HeaderClosed,
   Header,
   GoBackIcon,
   FavoriteIcon,
+  ViewInput,
 } from './styles';
 
 import logo from '../../assets/logo.png';
+import Input from '../../components/Form/Input'
 
 const HeaderCheckout = ({
   children,
@@ -26,34 +26,23 @@ const HeaderCheckout = ({
   const [listFavorites, setListFavorites] = useState([]);
   const [clientId, setClientId] = useState(0);
 
-
-
-
   const Content = () => (
     <>
-      {/* {butchery.operation === 'Closed' && (
-        <HeaderContainer>
-          <HeaderClosed>Fechado</HeaderClosed>
-        </HeaderContainer>
-      )} */}
-
-
       <ViewLogo elevation={8}>
-        <HeaderLogo source={logo} />
+        <HeaderLogo source={{uri: logo}}/>
       </ViewLogo>
     </>
   );
 
-
-    // return (
-    //   <Header source={logo} large={large}>
-    //     <Content />
-    //   </Header>
-    // );
-
     return (
       <Header large={large}>
         <Content />
+        <ViewInput>
+          <Input
+            placeholder="Como Posso te ajudar ?"
+            width="100%"
+          />
+        </ViewInput>
       </Header>
     );
 

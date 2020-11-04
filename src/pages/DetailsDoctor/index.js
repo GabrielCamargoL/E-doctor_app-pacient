@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {colors, general, fonts} from '../../styles';
 // import LottieView from 'lottie-react-native';
@@ -24,20 +25,15 @@ import HeaderCheckout from '../../components/HeaderCheckout';
 import api from '../../services/api';
 import ModalMedicalInfo from '../../components/ModalMedicalInfo'
 
-export default function DetailsDoctor({navigation}) {
-
-  const [value, setValue] = useState([]);
+export default function DetailsDoctor({}) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const [doctor, setDoctor] = useState([]);
   const [showModal, setShowModal] = useState(false);
-
-
-  const allowedState = [
-    { id: 1, name: "Alabama", cargo: 'Doctor' },
-    { id: 2, name: "Georgia", cargo: 'Doctor' },
-    { id: 3, name: "Tennessee", cargo: 'Doctor'}
-  ];
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setValue(allowedState)
+    getDoctorDetails()
   }, [])
 
   function handleEvaluation () {
@@ -48,14 +44,29 @@ export default function DetailsDoctor({navigation}) {
     navigation.navigate('Schedule')
   }
 
+  const getDoctorDetails = async () => {
+    try {
+      setLoading(true);
+      const doctorId = route.params ? route.params.doctorId : undefined;
+      const response = await api.get(`/doctorAuth/getUser/${doctorId}`);
+
+      if (response.data) {
+        setDoctor(response.data);
+      }
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <Container>
         <ScrollView>
             <HeaderCheckout
-              butchery={value}
+              butchery={doctor}
               //showcase={showcase.url}
-              //logo={logo.url}
+              logo={doctor.path_avatar}
               // onGoBack={
               //   prevRouterName
               //     ? () => navigation.navigate(prevRouterName, {total})
@@ -64,15 +75,15 @@ export default function DetailsDoctor({navigation}) {
               large
             />
             <SectionCompanyData>
-              <HeaderText>Dr. Thiago Henrique</HeaderText>
+              <HeaderText>{doctor.username} {doctor.surname}</HeaderText>
               <CompanyRate>
-                {Array(5).fill().map(icon => (<>
-                  <Icon name="star" size={14} color={colors.primary} />{' '}
-                </>))}
-                </CompanyRate>
+                {Array(5).fill().map(icon => (
+                  <Icon name="star" size={14} color={colors.primary} />
+                ))}
+              </CompanyRate>
             </SectionCompanyData>
             <SectionCompanyData>
-              <HeaderText>Nome do consultório</HeaderText>
+              <HeaderText>{doctor.username?? 'Nome do Consultório'}</HeaderText>
               <FlatButton onPress={() => handleEvaluation()}>
                 <FlatButtonText>Avaliações</FlatButtonText>
               </FlatButton>
@@ -84,17 +95,13 @@ export default function DetailsDoctor({navigation}) {
                 but sometimes for its stem and seeds
               </DetailsText>
             </Row>
-            <Row>
-              <Col>
-                <Button 
-                onPress={() => {handleShedule()}}
-                // onPress={() => { setShowModal(true);}}
-                >
-                  <ButtonText>solicitar agendamento</ButtonText>
-                </Button>
-              </Col>
-            </Row>
         </ScrollView>
+        <Button
+          onPress={() => {handleShedule()}}
+          // onPress={() => { setShowModal(true);}}
+        >
+          <ButtonText>Solicitar agendamento</ButtonText>
+        </Button>
       </Container>
       <ModalMedicalInfo
         isActive={true}

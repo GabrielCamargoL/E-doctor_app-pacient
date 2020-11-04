@@ -4,13 +4,13 @@ import {ScrollView, View, TouchableOpacity} from 'react-native';
 
 import { Agenda, LocaleConfig } from 'react-native-calendars';
 import {
-  Container,  
-  HeaderText,  
-  Col,  
+  Container,
+  HeaderText,
+  Col,
   Row,
   Button,
   ButtonText,
-  Logo, 
+  Logo,
 } from './styles';
 
 import api from '../../services/api';
@@ -33,18 +33,13 @@ export default function Shedule({navigation}) {
   const [items, setItems] = useState({});
 
   const [showModal, setShowModal] = useState(false);
-  
 
   const memoizedValue = useMemo(() => renderItem, [items])
 
   function find_dimesions(layout){
     const {x, y, width, height} = layout;
-    console.log(x);
-    console.log(y);
-    console.log(width);
-    console.log(height);
     setHeigth(height)
-  }  
+  }
 
   LocaleConfig.locales['br'] = {
     monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
@@ -55,7 +50,7 @@ export default function Shedule({navigation}) {
   };
   LocaleConfig.defaultLocale = 'br';
 
-  const loadItems = (day) => {    
+  const loadItems = (day) => {
     for (let i = -15; i < 85; i++) {
       const time = day.timestamp + i * 24 * 60 * 60 * 1000;
       const strTime = timeToString(time);
@@ -72,26 +67,30 @@ export default function Shedule({navigation}) {
     }
     const newItems = {};
     Object.keys(items).forEach(key => {newItems[key] = items[key];});
-    setItems(newItems);    
+    setItems(newItems);
   }
- 
+
   const renderItem = (props)  => {
     console.log(props);
     return (
       <TouchableOpacity style={{marginTop: 17, marginRight: 10}}>
-        <Container>      
+        <Container>
           <View style={{flexDirection: 'row', justifyContent: "space-between", alignItems: 'center'}}>
             <HeaderText>
               {props.name}
             </HeaderText>
             <Logo source={logo} resizeMode="contain" />
-          </View>     
+          </View>
         </Container>
-      </TouchableOpacity>    
+      </TouchableOpacity>
   )}
 
-  function handleShedule () {
-    navigation.navigate('Schedule')
+  const handleConsult = async () => {
+    const response = await api.get('medicalInfo/show')
+    if (response.status === 204) {
+      setShowModal(true);
+    }
+    else navigation.navigate('Schedule')
   }
 
   return (
@@ -99,14 +98,14 @@ export default function Shedule({navigation}) {
       <Container onLayout={(event) => {find_dimesions(event.nativeEvent.layout) }}>
         <ScrollView>
           <HeaderText>Selecione a data para consulta</HeaderText>
-          <Agenda            
+          <Agenda
             items={items}
             loadItemsForMonth={loadItems}
-            selected={'2020-01-01'} 
+            selected={'2020-01-01'}
             renderItem={memoizedValue}
-            minDate={'2019-05-10'}   
+            minDate={'2019-05-10'}
             maxDate={'2025-05-30'}
-            onDayPress={(day) => setDaySelected(day.dateString)}     
+            onDayPress={(day) => setDaySelected(day.dateString)}
             pastScrollRange={10}
             futureScrollRange={10}
             style={{height: 300}}
@@ -135,7 +134,7 @@ export default function Shedule({navigation}) {
               textDayFontSize: 16,
               textMonthFontSize: 16,
               textDayHeaderFontSize: 16
-            }}  
+            }}
           />
 
           <Row>
@@ -145,10 +144,10 @@ export default function Shedule({navigation}) {
           <Row>
             <HeaderText>HORÁRIO:</HeaderText>
             <HeaderText>06:20 AM</HeaderText>
-          </Row>          
-            <Button  onPress={() => { setShowModal(true);}}>
+          </Row>
+            <Button onPress={handleConsult}>
               <ButtonText>solicitar agendamento</ButtonText>
-            </Button>          
+            </Button>
         </ScrollView>
       </Container>
       <ModalMedicalInfo

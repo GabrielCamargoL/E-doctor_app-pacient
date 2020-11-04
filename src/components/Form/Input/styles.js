@@ -22,7 +22,6 @@ export const InputView = styled.View`
 
 export const StyledInput = styled.TextInput`
   flex: 1;
-  font-size: 12px;
   font-family: Roboto-Regular;
   text-align: ${props => (props.textAlign ? props.textAlign : 'left')};
   padding-left: ${props => (props.iconLeft ? 0 : '10px')};

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import {useNavigation, useRoute} from '@react-navigation/native';
+
 
 import {
   Container,
@@ -11,13 +13,13 @@ import {
   ButtonSaveText,
 } from './styles';
 
-import { Text, View, StyleSheet, Button } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Alert } from 'react-native';
 
 import api from '../../services/api';
-import styled from 'styled-components';
 
-export default function MedicalInfo({ navigation, route }) {
+export default function MedicalInfo() {
+  const route = useRoute();
+  const navigation = useNavigation();
 
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
@@ -25,14 +27,55 @@ export default function MedicalInfo({ navigation, route }) {
   const [allergy, setAllergy] = useState('');
   const [medicine, setMedicine] = useState('');
   const [disease, setDisease] = useState('')
-  
+  const [consult, setConsult] = useState(false)
 
+  const getMedicalInfo = async () => {
+    try {
+      const { data } = await api.get('medicalInfo/show');
 
-  async function saveMedInfo() {
-   //comunicação com a api
+      setWeight(data.weight)
+      setHeight(data.height)
+      setAllergy(data.allergy)
+      setMedicine(data.personal_medicine)
+      setBloodType(data.blood_type)
+      setDisease(data.health_problems)
+
+    } catch (error) {
+      console.log('error', error);
+    }
   }
 
+  const handleMedicalInfo = async () => {
+    try {
+      const response = await api.put('medicalInfo/update', {
+        weight,
+        height,
+        blood_type: bloodType,
+        health_problems: disease,
+        allergy,
+        personal_medicine: medicine
+      })
+      if (response.status == 200) {
+        Alert.alert(
+          'Sucesso',
+          'Dados alterados com sucesso',
+          [
+            { text: 'Fechar',  onPress: consult ? navigation.goBack() : null }
+          ],
+          { cancelable: false }
+        )
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
+  useEffect(() => {
+    if (route.params) {
+      setConsult(route.params.consult)
+    }
+    getMedicalInfo()
+  }, [])
 
   return (
     <>
@@ -42,9 +85,10 @@ export default function MedicalInfo({ navigation, route }) {
             <LabelInput>Peso</LabelInput>
             <InputLabel
               placeholder="XX.XX kg"
-              placeholderTextColor="#A8A8A8"
               keyboardType="numeric"
-              value={weight}
+              returnKeyType="go"
+              placeholderTextColor="#A8A8A8"
+              value={`${weight}`}
               onChangeText={setWeight}
             />
           </InputContainer>
@@ -55,11 +99,11 @@ export default function MedicalInfo({ navigation, route }) {
             <LabelInput>Altura</LabelInput>
             <InputLabel
               placeholder="X.XX metros"
-              placeholderTextColor="#A8A8A8"
               keyboardType="numeric"
-              value={height}
+              returnKeyType="go"
+              placeholderTextColor="#A8A8A8"
+              value={`${height}`}
               onChangeText={setHeight}
-              secureTextEntry={true}
             />
           </InputContainer>
         </Row>
@@ -70,8 +114,7 @@ export default function MedicalInfo({ navigation, route }) {
             <InputLabel
               placeholder="X"
               placeholderTextColor="#A8A8A8"
-              keyboardType="default"
-              value={bloodType}
+              value={bloodType?? ''}
               onChangeText={setBloodType}
             />
           </InputContainer>
@@ -83,8 +126,7 @@ export default function MedicalInfo({ navigation, route }) {
             <InputLabel
               placeholder="Descreva aqui..."
               placeholderTextColor="#A8A8A8"
-              keyboardType="defautl"
-              value={allergy}
+              value={allergy?? ''}
               onChangeText={setAllergy}
             />
           </InputContainer>
@@ -96,8 +138,7 @@ export default function MedicalInfo({ navigation, route }) {
             <InputLabel
               placeholder="Descreva aqui..."
               placeholderTextColor="#A8A8A8"
-              keyboardType="default"
-              value={medicine}
+              value={medicine?? ''}
               onChangeText={setMedicine}
             />
           </InputContainer>
@@ -109,15 +150,14 @@ export default function MedicalInfo({ navigation, route }) {
             <InputLabel
               placeholder="Descreva aqui..."
               placeholderTextColor="#A8A8A8"
-              keyboardType="default"
-              value={disease}
+              value={disease?? ''}
               onChangeText={setDisease}
             />
           </InputContainer>
         </Row>
 
         <ButtonSaveView>
-            <ButtonSave onPress={saveMedInfo}>
+            <ButtonSave onPress={handleMedicalInfo}>
               <ButtonSaveText>SALVAR</ButtonSaveText>
             </ButtonSave>
         </ButtonSaveView>
