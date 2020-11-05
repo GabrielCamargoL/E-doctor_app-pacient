@@ -9,10 +9,8 @@ export const Container = styled.SafeAreaView.attrs({
 `;
 
 export const Card = styled.TouchableOpacity`
-  width: 85%;
+  width: 100%;
   height: 145px;
-  margin: 10px 0;
-  background-color: #fff;
   padding: 10px 15px;
   flex-direction: row;
   align-items: center;
@@ -21,23 +19,26 @@ export const Card = styled.TouchableOpacity`
 `;
 
 export const IconCard = styled.View`
-  width: 40%;
+  width: 20%;
 `;
 
 export const Data = styled.View`
-  align-items: center;
+  align-items: flex-start;
   width: 70%;
   padding: 0 10px;
 `;
 
 export const NameLabel = styled.Text`
   font-size: ${fonts.input};
-  color: ${colors.primary}
+  color: ${colors.primary};
+  margin-left: 20px
 `;
 
-export const SpecialtyLabel = styled.Text`
+export const DoubtLabel = styled.Text`
   font-family: Roboto-Regular;
   font-size: 14px;
+  margin-left: 35px;
+  color: ${colors.gray}
 `;
 
 export const Image = styled.Image`

@@ -7,6 +7,7 @@ const colors = {
   primary_40:'rgba(121, 21, 193, 0.4)',
   primary_20:'rgba(121, 21, 193, 0.2)',
   black:'#000',
+  gray: '#99879D',
 };
 
 export default colors;

@@ -14,19 +14,6 @@ export const Title = styled.Text`
   font-weight: bold;
   font-size: 18;
   color: #767272;
+  text-align: center
 `;
 
-export const TabMenu = styled.Text`
-  color: #000;
-  text-transform: capitalize;
-  font-family: Roboto-Bold;
-  font-size: 12
-`;
-
-export const Logo = styled.Image`
-  width: 90%;
-  height:250;
-  align-self:center;
-  margin-top:50;
-  margin-bottom:20;
-`;

@@ -1,37 +1,67 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  Text,
-  Button,
-  SafeAreaView,
-  ScrollView,
   StyleSheet,
-  StatusBar,
+  RefreshControl
 } from 'react-native';
-import {Tabs, TabHeading, Tab} from 'native-base';
-import {Container, Logo, Title, TabMenu} from './styles';
+import { Tabs, TabHeading, Tab } from 'native-base';
+import { Container, Logo, Title, TabMenu } from './styles';
 import InputSearch from '../../components/InputSearch';
 import DoctorCard from '../../components/DoctorCard';
 import logo3 from '../../assets/home1.png';
 
-export default function Home({navigation}) {
-  const [value, setValue] = useState([]);
+import api from '../../services/api';
 
-  const allowedState = [
-    {id: 1, name: 'Alabama', cargo: 'Doctor'},
-    {id: 2, name: 'Georgia', cargo: 'Doctor'},
-    {id: 3, name: 'Tennessee', cargo: 'Doctor'},
-  ];
+export default function Home({ navigation }) {
+  const [refreshing, setRefreshing] = React.useState(false);
+  const [doctors, setDoctors] = useState([]);
+  const [clinics, setClinics] = useState([]);
 
   useEffect(() => {
-    console.log('aaa');
-    setValue(allowedState);
+    getDoctors()
+    getClinic()
+  }, [navigation]);
+
+  const onRefresh = React.useCallback(() => {
+    getDoctors()
+    getClinic()
   }, []);
+
+  const getDoctors = async () => {
+    try {
+      setRefreshing(true);
+      const response = await api.get('/doctorAuth/index');
+      setDoctors(response.data)
+      setRefreshing(false);
+
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
+  const getClinic = async () => {
+    try {
+      setRefreshing(true);
+      const response = await api.get('/clinicAuth/index');
+      setClinics(response.data)
+      setRefreshing(false);
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <>
-      <Container>
-        <Tabs>
+      <Container
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        <Tabs
+          tabBarUnderlineStyle={{borderBottomWidth:3, borderBottomColor: '#7915c1'}}>
           <Tab
+            style={{backgroundColor:'#f1f1f1'}}
             heading={
               <TabHeading style={styles.tabHeading}>
                 <TabMenu>Médicos</TabMenu>
@@ -39,58 +69,39 @@ export default function Home({navigation}) {
             }>
             <Title>Conhece o doutor?</Title>
             <InputSearch
-              backgroundColor="#f8f8f8"
               paddingTop={5}
               paddingBottom={1}
             />
-            <Logo source={logo3} resizeMode="contain" />
-
-            <DoctorCard
-              key={value.id}
-              navigation={navigation}
-              doctorData={value}
-              doctorId={value.id}
-            />
+            {doctors.map(doctor => (
+              <DoctorCard
+                key={doctor.id}
+                navigation={navigation}
+                doctorData={doctor}
+                doctorId={doctor.id}
+              />
+            ))}
           </Tab>
           <Tab
-            style={styles.tabs}
+            style={{backgroundColor:'#f1f1f1'}}
             heading={
               <TabHeading style={styles.tabHeading}>
                 <TabMenu>Consultórios</TabMenu>
               </TabHeading>
-            }>
+            }
+            >
             <Title>Busque por consultórios</Title>
             <InputSearch
-              backgroundColor="#f8f8f8"
               paddingTop={5}
               paddingBottom={1}
             />
-            <DoctorCard
-              key={value.id}
-              navigation={navigation}
-              doctorData={value}
-              doctorId={value.id}
-            />
-          </Tab>
-          <Tab
-            style={styles.tabs}
-            heading={
-              <TabHeading style={styles.tabHeading}>
-                <TabMenu>Especialidade</TabMenu>
-              </TabHeading>
-            }>
-            <Title>Busque por especialidade</Title>
-            <InputSearch
-              backgroundColor="#f8f8f8"
-              paddingTop={5}
-              paddingBottom={1}
-            />
-            <DoctorCard
-              key={value.id}
-              navigation={navigation}
-              doctorData={value}
-              doctorId={value.id}
-            />
+            {clinics.map(clinic => (
+              <DoctorCard
+                key={clinic.doctor_id}
+                navigation={navigation}
+                doctorData={clinic}
+                doctorId={clinic.id}
+              />
+            ))}
           </Tab>
         </Tabs>
       </Container>
@@ -100,8 +111,6 @@ export default function Home({navigation}) {
 
 const styles = StyleSheet.create({
   tabHeading: {
-    backgroundColor: '#f8f8f8',
-    borderBottomWidth: 3,
-    borderBottomColor: '#7915c1',
+    backgroundColor: '#fff',
   },
 });

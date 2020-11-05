@@ -4,8 +4,8 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {colors, fonts} from '../../styles';
 
 export const Container = styled.ScrollView.attrs({
-  // paddingHorizontal: 10,
-  // paddingVertical: 90,
+  paddingHorizontal: 10,
+  paddingVertical: 90,
 })`
   flex: 1;
   background-color: ${colors.background};

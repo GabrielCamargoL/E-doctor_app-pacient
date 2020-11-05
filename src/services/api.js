@@ -1,7 +1,16 @@
 import axios from 'axios';
+import { getToken } from './auth';
 
 const api = axios.create({
-  baseURL: 'http://192.168.0.3:3001',
+  baseURL: 'http://10.0.2.2:3001',
+});
+
+api.interceptors.request.use(async (config) => {
+  const token = await getToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 export default api;

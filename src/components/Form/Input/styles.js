@@ -22,7 +22,6 @@ export const InputView = styled.View`
 
 export const StyledInput = styled.TextInput`
   flex: 1;
-  font-size: 12px;
   font-family: Roboto-Regular;
   text-align: ${props => (props.textAlign ? props.textAlign : 'left')};
   padding-left: ${props => (props.iconLeft ? 0 : '10px')};
@@ -51,4 +50,14 @@ export const IconLeft = styled(Icon)`
 export const IconRight = styled(Icon)`
   padding-left: 10px;
   padding-right: 10px;
+`;
+
+export const MaxLengthLabel = styled.Text`
+  position: relative;
+  font-family: Roboto-Regular;
+  font-size: 10px;
+  margin-left: 5px;
+  color: #817981;
+  bottom: 14px;
+  left: 86%;
 `;

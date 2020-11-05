@@ -11,36 +11,17 @@ export const Container = styled.ScrollView.attrs({
 export const Row = styled.View`
     flex-direction: row;
     width:100%;
-    margin-top:10px;
 `;
 
 export const Col = styled.View`
-    flex-direction: column;
-`;
-
-export const SubTitle = styled.Text`
-  font-size:${fonts.title};
-  align-self: center;
-  margin-top:15%;
-  margin-bottom:8%;
+  flex-direction: column;
 `;
 
 export const InputContainer = styled.View.attrs({
   paddingHorizontal: 10,
 })`
   flex: 1;
-  height: 70;
-`;
-
-
-export const LabelContainer = styled.View.attrs({
-  paddingHorizontal: 10,
-})`
-  background-color: #fff;
-  top: 10;
-  left: 25;
-  z-Index: 50;
-  width:23%;
+  height: 70
 `;
 
 export const LabelInput = styled.Text`
@@ -57,31 +38,15 @@ export const InputLabel = styled.TextInput`
   border-radius: 10px;
   padding-left: 10px;
   width: 100%;
-  margin-bottom:20px;
-  margin-top:5px;
 `;
 
 export const ChangeData = styled.Text`
-  font-size:18px;
-  font-weight:bold;
+  font-size:14px;
   color: #000;
-  margin-bottom: 20%;
-`;
-
-export const ButtonContainer = styled.View`
-    flex-direction: row;
-    justify-content: space-between;
-    margin-right:15;
 `;
 
 export const ButtonEditView = styled.View`
   align-self: center;
-  margin-top:15%;
-`;
-
-export const ButtonEdit1View = styled.View`
-  align-self: center;
-  margin-top:45%;
 `;
 
 export const ButtonEdit = styled.TouchableOpacity`

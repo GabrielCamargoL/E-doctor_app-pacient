@@ -19,33 +19,27 @@ import logo from '../../assets/logo.png';
 
 
 const DoctorCard = ({doctorId, doctorData, navigation})  => {
-
   const goDetailsDoctor = () => {
-    console.log('tester');
-    navigation.navigate('DetailsDoctor');
+    navigation.navigate('DetailsDoctor', {doctorId});
   };
 
   return (
-    <>
-    <Container
-      elevation={8}>
-      {doctorData.map(doctor => (
-        <Card
-          key={doctor.id}
-          onPress={goDetailsDoctor}>
+    <Container>
+      <Card
+        key={doctorId}
+        onPress={() => goDetailsDoctor(doctorId)}
+        elevation={8}
+      >
+        <IconCard>
+          <Image source={{uri: doctorData.path_avatar}} resizeMode="center"/>
+        </IconCard>
 
-          <IconCard>
-            <Image source={logo} resizeMode="center"/>
-          </IconCard>
-
-          <Data>
-            <NameLabel>{doctor.name}</NameLabel>
-            <SpecialtyLabel>{doctor.cargo}</SpecialtyLabel>
-          </Data>
-        </Card>
-      ))}
+        <Data>
+          <NameLabel>{doctorData.username?? doctorData.name} {doctorData.surname}</NameLabel>
+          <SpecialtyLabel>{doctorData.specialty?? doctorData.neighborhood}</SpecialtyLabel>
+        </Data>
+      </Card>
     </Container>
-    </>
   );
 };
 
