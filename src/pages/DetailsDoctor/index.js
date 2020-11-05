@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState, useEffect} from 'react';
-import {ScrollView} from 'react-native';
+import React, {useState, useEffect, useContext} from 'react';
+import {ScrollView, RefreshControl} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {colors, general, fonts} from '../../styles';
@@ -23,9 +23,9 @@ import {
 import HeaderCheckout from '../../components/HeaderCheckout';
 
 import api from '../../services/api';
-import ModalMedicalInfo from '../../components/ModalMedicalInfo'
 
 export default function DetailsDoctor({}) {
+  const [refreshing, setRefreshing] = React.useState(false);
   const navigation = useNavigation();
   const route = useRoute();
   const [doctor, setDoctor] = useState([]);
@@ -36,11 +36,16 @@ export default function DetailsDoctor({}) {
     getDoctorDetails()
   }, [])
 
+  const onRefresh = React.useCallback(() => {
+    getDoctorDetails();
+  }, []);
+
+
   function handleEvaluation () {
     navigation.navigate('Evaluation')
   }
 
-  function handleShedule () {
+  const handleShedule = () => {
     navigation.navigate('Schedule')
   }
 
@@ -62,16 +67,16 @@ export default function DetailsDoctor({}) {
   return (
     <>
       <Container>
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
             <HeaderCheckout
-              butchery={doctor}
+              doctor={doctor}
               //showcase={showcase.url}
               logo={doctor.path_avatar}
-              // onGoBack={
-              //   prevRouterName
-              //     ? () => navigation.navigate(prevRouterName, {total})
-              //     : () => navigation.navigate('Main', {total})
-              // }
+              onGoBack={() => navigation.goBack()}
               large
             />
             <SectionCompanyData>
@@ -96,20 +101,10 @@ export default function DetailsDoctor({}) {
               </DetailsText>
             </Row>
         </ScrollView>
-        <Button
-          onPress={() => {handleShedule()}}
-          // onPress={() => { setShowModal(true);}}
-        >
+        <Button onPress={handleShedule}>
           <ButtonText>Solicitar agendamento</ButtonText>
         </Button>
       </Container>
-      <ModalMedicalInfo
-        isActive={true}
-        visible={showModal}
-        justifyContent={'center'}
-        onClose={() => setShowModal(false)}
-        navigation={navigation}
-      />
     </>
   );
 }

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Alert } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { Alert, RefreshControl } from 'react-native';
 
 import {
   Container,
@@ -20,6 +20,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import api from '../../services/api';
 
 export default function ProfilePatient({ navigation, routes }) {
+  const [refreshing, setRefreshing] = React.useState(false);
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [phone, setPhone] = useState('');
@@ -35,6 +36,7 @@ export default function ProfilePatient({ navigation, routes }) {
 
   const getUserAuthData = async () => {
     try {
+      setRefreshing(true);
       const response = await api.get('/patientAuth/getUser');
       if (response.data) {
         setUser(response.data);
@@ -49,6 +51,7 @@ export default function ProfilePatient({ navigation, routes }) {
         setUf(response.data.state);
         setCity(response.data.city);
       }
+      setRefreshing(false);
     } catch (err) {
       console.log(`aaaaaaaaaa ${err}`);
     }
@@ -58,12 +61,17 @@ export default function ProfilePatient({ navigation, routes }) {
     getUserAuthData();
   }, []);
 
+  const onRefresh = React.useCallback(() => {
+    getUserAuthData();
+  }, []);
+
   async function handleEditPassword() {
     navigation.navigate('EditPassword'), {};
   }
 
   const handleEditUser = async () => {
     try {
+      setRefreshing(true);
       const response = await api.put('patientAuth/users/1', {
         username: name,
         surname,
@@ -76,7 +84,7 @@ export default function ProfilePatient({ navigation, routes }) {
         state: uf,
         city
       })
-
+      setRefreshing(false);
       if (response.data) {
         Alert.alert(
           'Sucesso',
@@ -94,7 +102,10 @@ export default function ProfilePatient({ navigation, routes }) {
 
   return (
     <>
-      <Container>
+      <Container
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <Row>
           <InputContainer>
             <LabelInput>Nome</LabelInput>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
-
+import {
+  RefreshControl
+} from 'react-native';
 
 import {
   Container,
@@ -20,7 +22,7 @@ import api from '../../services/api';
 export default function MedicalInfo() {
   const route = useRoute();
   const navigation = useNavigation();
-
+  const [refreshing, setRefreshing] = React.useState(false);
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
   const [bloodType, setBloodType] = useState('');
@@ -29,8 +31,13 @@ export default function MedicalInfo() {
   const [disease, setDisease] = useState('')
   const [consult, setConsult] = useState(false)
 
+  const onRefresh = React.useCallback(() => {
+    getMedicalInfo()
+  }, []);
+
   const getMedicalInfo = async () => {
     try {
+      setRefreshing(true);
       const { data } = await api.get('medicalInfo/show');
 
       setWeight(data.weight)
@@ -39,6 +46,7 @@ export default function MedicalInfo() {
       setMedicine(data.personal_medicine)
       setBloodType(data.blood_type)
       setDisease(data.health_problems)
+      setRefreshing(false);
 
     } catch (error) {
       console.log('error', error);
@@ -47,6 +55,7 @@ export default function MedicalInfo() {
 
   const handleMedicalInfo = async () => {
     try {
+      setRefreshing(true);
       const response = await api.put('medicalInfo/update', {
         weight,
         height,
@@ -55,6 +64,7 @@ export default function MedicalInfo() {
         allergy,
         personal_medicine: medicine
       })
+      setRefreshing(false);
       if (response.status == 200) {
         Alert.alert(
           'Sucesso',
@@ -79,7 +89,11 @@ export default function MedicalInfo() {
 
   return (
     <>
-      <Container>
+      <Container
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <Row>
           <InputContainer>
             <LabelInput>Peso</LabelInput>

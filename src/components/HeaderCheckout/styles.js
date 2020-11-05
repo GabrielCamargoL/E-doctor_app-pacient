@@ -35,17 +35,29 @@ export const Header = styled.ImageBackground.attrs({})`
   margin-bottom: 20px;
 `;
 
+export const ViewIcon = styled.TouchableOpacity`
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  background-color: #c8c8c8;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+`;
+
+export const ViewGoBackIcon = styled(ViewIcon)`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+`;
+
 export const GoBackIcon = styled(IconAnt).attrs({
   color: '#fff',
   size: 32,
   resizeMode: 'contain',
   type: 'AntDesign',
   name: 'arrowleft',
-})`
-  position: absolute;
-  top: 10px;
-  left: 10px;
-`;
+})``;
 
 export const FavoriteIcon = styled(Icon).attrs({
   color: '#fff',

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState, useMemo, useCallback} from 'react';
-import {ScrollView, View, TouchableOpacity} from 'react-native';
+import React, {useState, useMemo, useCallback, useContext} from 'react';
+import {ScrollView, View, TouchableOpacity, RefreshControl} from 'react-native';
 
 import { Agenda, LocaleConfig } from 'react-native-calendars';
 import {
@@ -24,22 +24,14 @@ const timeToString = (time) => {
 import ModalMedicalInfo from '../../components/ModalMedicalInfo'
 
 export default function Shedule({navigation}) {
-  const [value, setValue] = useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
+
   const [daySelected, setDaySelected] = useState('')
-  const vacation = { key: 'vacation', color: 'red', selectedDotColor: 'blue' };
-  const massage = { key: 'massage', color: 'blue', selectedDotColor: 'blue' };
-  const workout = { key: 'workout', color: 'green' };
-  const [heigth, setHeigth] = useState(0)
   const [items, setItems] = useState({});
 
   const [showModal, setShowModal] = useState(false);
 
   const memoizedValue = useMemo(() => renderItem, [items])
-
-  function find_dimesions(layout){
-    const {x, y, width, height} = layout;
-    setHeigth(height)
-  }
 
   LocaleConfig.locales['br'] = {
     monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
@@ -49,6 +41,8 @@ export default function Shedule({navigation}) {
     today: 'Hoje'
   };
   LocaleConfig.defaultLocale = 'br';
+
+  const onRefresh = React.useCallback(() => {}, []);
 
   const loadItems = (day) => {
     for (let i = -15; i < 85; i++) {
@@ -95,7 +89,11 @@ export default function Shedule({navigation}) {
 
   return (
     <>
-      <Container onLayout={(event) => {find_dimesions(event.nativeEvent.layout) }}>
+      <Container
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <ScrollView>
           <HeaderText>Selecione a data para consulta</HeaderText>
           <Agenda

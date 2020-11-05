@@ -9,6 +9,7 @@ import {
   GoBackIcon,
   FavoriteIcon,
   ViewInput,
+  ViewGoBackIcon
 } from './styles';
 
 import logo from '../../assets/logo.png';
@@ -16,7 +17,7 @@ import Input from '../../components/Form/Input'
 
 const HeaderCheckout = ({
   children,
-  butchery,
+  doctor,
   showcase,
   logo,
   onGoBack,
@@ -31,6 +32,12 @@ const HeaderCheckout = ({
       <ViewLogo elevation={8}>
         <HeaderLogo source={{uri: logo}}/>
       </ViewLogo>
+
+      {onGoBack && (
+        <ViewGoBackIcon onPress={onGoBack}>
+          <GoBackIcon />
+        </ViewGoBackIcon>
+      )}
     </>
   );
 
