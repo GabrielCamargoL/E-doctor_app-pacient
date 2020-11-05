@@ -20,7 +20,7 @@ export default function Dobout({navigation}) {
   const getDoubt = async () => {
     try {
       setRefreshing(true);
-      const response = await api.get('/doubt/index');
+      const response = await api.get('patientAuth/doubt/index');
       setDoubt(response.data)
       setRefreshing(false);
 
@@ -36,14 +36,22 @@ export default function Dobout({navigation}) {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        {doubt.map(doubt => (
-          <DoubtCard
-            key={doubt.id}
-            navigation={navigation}
-            data={doubt}
-            doubtId={doubt.id}
-          />
-        ))}
+        {doubt.length > 0 ? (
+          <>
+            {doubt.map(doubt => (
+              <DoubtCard
+              key={doubt.id}
+              navigation={navigation}
+              data={doubt}
+              doubtId={doubt.id}
+              />
+            ))}
+          </>
+        ):(
+          <>
+            <Title>Não há dúvidas para serem mostradas</Title>
+          </>
+        )}
 
       </Container>
     </>

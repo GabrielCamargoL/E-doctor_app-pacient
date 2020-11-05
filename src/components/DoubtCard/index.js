@@ -39,7 +39,11 @@ const DoubtCard = ({doubtId, data, navigation})  => {
               : data.doubt
               ?? 'Sua dúvida'}
             </DoubtLabel>
-            <DoubtLabel style={{color: '#111'}}> - Resposta</DoubtLabel>
+            <DoubtLabel style={{color: '#111'}}> - {(data.answer).length > 30
+              ?
+                (((data.answer).substring(0, 50)) + '...')
+              : data.answer
+              ?? 'Sua dúvida'}</DoubtLabel>
           </Data>
 
           <Icon name="whatsapp" size={35} color="#1f1" />

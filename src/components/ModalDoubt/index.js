@@ -52,7 +52,7 @@ const ModalDoubt =  ({
               {data.doctor.username} {data.doctor.surname}
             </NameLabel>
           </Col>
-          <Label>{data.doubt}</Label>
+          <Label>{data.answer?? ''}</Label>
         </Container>
         <TouchableOpacity
           style={{alignSelf: 'center', borderTopWidth: 0.5, width: '100%'}}
