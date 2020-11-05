@@ -1,18 +1,17 @@
-/* eslint-disable eqeqeq */
-import React, {useState, useEffect} from 'react';
-
-import api from '../../services/api';
+import React, {useState} from 'react';
+import { ActivityIndicator } from 'react-native';
 import {
   ViewLogo,
   HeaderLogo,
   Header,
   GoBackIcon,
-  FavoriteIcon,
   ViewInput,
   ViewGoBackIcon
 } from './styles';
 
-import logo from '../../assets/logo.png';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+import api from '../../services/api';
 import Input from '../../components/Form/Input'
 
 const HeaderCheckout = ({
@@ -23,9 +22,25 @@ const HeaderCheckout = ({
   onGoBack,
   large,
 }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [listFavorites, setListFavorites] = useState([]);
-  const [clientId, setClientId] = useState(0);
+  const [doubt, setDoubt] = useState('');
+  const [load, setLoad] = useState(false);
+
+  const sendDoubt = async () => {
+    try {
+      setLoad(true)
+      const response = await api.post('doubt/create', {
+        doctor_id: doctor.id,
+        doubt
+      })
+      if (response.status == 200){
+        setDoubt('')
+      }
+    } catch (error) {
+      console.log(error);
+      setLoad(false)
+    }
+
+  }
 
   const Content = () => (
     <>
@@ -48,6 +63,13 @@ const HeaderCheckout = ({
           <Input
             placeholder="Como Posso te ajudar ?"
             width="100%"
+            multiline={true}
+            numberOfLines={1}
+            maxLength={200}
+            value={doubt}
+            onChangeText={setDoubt}
+            iconRight={!load ? 'paper-plane-o': 'check-circle'}
+            onIconRightPress={doubt.length ? sendDoubt : null}
           />
         </ViewInput>
       </Header>

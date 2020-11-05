@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {
   Container,
   Label,
@@ -7,6 +7,7 @@ import {
   InputView,
   IconLeft,
   IconRight,
+  MaxLengthLabel
 } from './styles';
 
 const Input = ({
@@ -19,14 +20,22 @@ const Input = ({
   iconLeft,
   iconRight,
   iconSize = 20,
-  iconColor = '#771a22',
+  iconColor = '#7915c1',
   textAlign,
   width,
+  maxLength,
   borderColor,
   onIconLeftPress,
   onIconRightPress,
   ...props
 }) => {
+  const valueLength = useMemo(() => {
+    if (!value) {
+      return 0;
+    }
+    return value.length;
+  }, [value]);
+
   return (
     <Container width={width}>
       {label && <Label>{label ? label : null}</Label>}
@@ -60,6 +69,7 @@ const Input = ({
           error={!!error}
           iconLeft={!!iconLeft}
           iconRight={!!iconRight}
+          maxLength={maxLength}
           {...props}
         />
         {iconRight && (
@@ -71,6 +81,9 @@ const Input = ({
           />
         )}
       </InputView>
+      {maxLength && (
+        <MaxLengthLabel>{`${valueLength}/${maxLength}`}</MaxLengthLabel>
+      )}
     </Container>
   );
 };

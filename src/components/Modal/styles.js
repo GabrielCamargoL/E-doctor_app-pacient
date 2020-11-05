@@ -19,14 +19,13 @@ export const Content = styled.View`
     props.backgroundColor ? props.backgroundColor : '#fff'};
   padding: 10px;
   border-radius: 10px;
-  align-items: center;
   justify-content: ${props =>
     props.justifyContent ? props.justifyContent : 'space-between'};
 `;
 
 export const Close = styled.TouchableOpacity`
   position: absolute;
-  top: 0;
+  top: 10px;
   right: 10px;
   width: 30px;
   height: 30px;

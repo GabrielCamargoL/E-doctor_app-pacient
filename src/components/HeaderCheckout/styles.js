@@ -69,3 +69,4 @@ export const FavoriteIcon = styled(Icon).attrs({
   top: 10px;
   right: 10px;
 `;
+

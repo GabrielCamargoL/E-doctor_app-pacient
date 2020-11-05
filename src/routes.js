@@ -24,6 +24,7 @@ import RegisterStep3 from './pages/RegisterPatient/RegisterStep3';
 import DetailsDoctor from './pages/DetailsDoctor';
 
 import MedicalInfo from './pages/MedicalInfo';
+import Doubt from './pages/Doubt'
 
 import RegisterDependent from './pages/RegisterDependent';
 
@@ -38,7 +39,7 @@ const Tab = createBottomTabNavigator();
 function BottomTab() {
   return (
     <Tab.Navigator
-    screenOptions={({ route }) => ({
+      screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
 
@@ -52,11 +53,11 @@ function BottomTab() {
         // You can return any component that you like here!
         return <Icon name={iconName} size={size} color={color} />;
       },
-    })}
-    tabBarOptions={{
-      activeTintColor: '#7915c1',
-      inactiveTintColor: 'gray',
-    }}
+      })}
+      tabBarOptions={{
+        activeTintColor: '#7915c1',
+        inactiveTintColor: 'gray',
+      }}
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Opções" component={Options} />
@@ -126,6 +127,11 @@ export default function Routes() {
         options={{ headerShown: false }}
         name="Schedule"
         component={Schedule}
+      />
+      <Stack.Screen
+        options={{ title: 'Dúvidas' }}
+        name="Doubt"
+        component={Doubt}
       />
 
     </Stack.Navigator>

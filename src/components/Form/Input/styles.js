@@ -51,3 +51,13 @@ export const IconRight = styled(Icon)`
   padding-left: 10px;
   padding-right: 10px;
 `;
+
+export const MaxLengthLabel = styled.Text`
+  position: relative;
+  font-family: Roboto-Regular;
+  font-size: 10px;
+  margin-left: 5px;
+  color: #817981;
+  bottom: 14px;
+  left: 86%;
+`;
