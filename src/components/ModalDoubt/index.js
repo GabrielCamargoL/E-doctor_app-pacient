@@ -41,7 +41,7 @@ const ModalDoubt =  ({
     >
         <Container>
           <Col>
-            <NameLabel>{data.doctor.username} {data.doctor.surname}</NameLabel>
+            <NameLabel>{data.user.username} {data.user.surname}</NameLabel>
             <Label>{data.doubt}</Label>
           </Col>
           <Col>

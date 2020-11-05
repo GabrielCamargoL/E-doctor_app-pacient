@@ -103,27 +103,6 @@ export default function Home({ navigation }) {
               />
             ))}
           </Tab>
-          <Tab
-            style={{backgroundColor:'#f1f1f1'}}
-            heading={
-              <TabHeading style={styles.tabHeading}>
-                <TabMenu>Especialidade</TabMenu>
-              </TabHeading>
-            }>
-            <Title>Busque por especialidade</Title>
-            <InputSearch
-              paddingTop={5}
-              paddingBottom={1}
-            />
-            {doctors.map(doctor => (
-              <DoctorCard
-                key={doctor.id}
-                navigation={navigation}
-                doctorData={doctor}
-                doctorId={doctor.id}
-              />
-            ))}
-          </Tab>
         </Tabs>
       </Container>
     </>
