@@ -28,7 +28,7 @@ const HeaderCheckout = ({
   const sendDoubt = async () => {
     try {
       setLoad(true)
-      const response = await api.post('doubt/create', {
+      const response = await api.post('patientAuth/doubt/create', {
         doctor_id: doctor.id,
         doubt
       })

@@ -1,37 +1,38 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState, useMemo, useCallback, useContext} from 'react';
-import {ScrollView, View, TouchableOpacity, RefreshControl} from 'react-native';
+import React, {useState, useMemo, useEffect, useContext} from 'react';
+import {ScrollView, View, TouchableOpacity, Alert } from 'react-native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {colors} from '../../styles';
+import moment from 'moment';
+import 'moment/min/locales'
+import tz from 'moment-timezone';
 
 import { Agenda, LocaleConfig } from 'react-native-calendars';
 import {
   Container,
   HeaderText,
-  Col,
   Row,
   Button,
   ButtonText,
-  Logo,
+  Badge,
+  BadgeLabel,
 } from './styles';
 
 import api from '../../services/api';
-import logo from '../../assets/logo.png';
-
-const timeToString = (time) => {
-  const date = new Date(time);
-  return date.toISOString().split('T')[0];
-}
+import { getIdKey } from '../../services/auth';
 
 import ModalMedicalInfo from '../../components/ModalMedicalInfo'
 
-export default function Shedule({navigation}) {
-  const [refreshing, setRefreshing] = React.useState(false);
-
-  const [daySelected, setDaySelected] = useState('')
+export default function Shedule({}) {
+  const [refreshing, setRefreshing] = useState(false);
+  const navigation = useNavigation();
+  const route = useRoute();
+  const [confirmedAppointments, setConfirmedAppointments] = useState([]);
   const [items, setItems] = useState({});
 
-  const [showModal, setShowModal] = useState(false);
+  const [daySelected, setDaySelected] = useState('')
+  const [hourSelected, setHoursSelected] = useState({id: null, hour: ''})
 
-  const memoizedValue = useMemo(() => renderItem, [items])
+  const [showModal, setShowModal] = useState(false);
 
   LocaleConfig.locales['br'] = {
     monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
@@ -42,68 +43,146 @@ export default function Shedule({navigation}) {
   };
   LocaleConfig.defaultLocale = 'br';
 
-  const onRefresh = React.useCallback(() => {}, []);
-
-  const loadItems = (day) => {
-    for (let i = -15; i < 85; i++) {
-      const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-      const strTime = timeToString(time);
-      if (!items[strTime]) {
-        items[strTime] = [];
-        const numItems = Math.floor(Math.random() * 3 + 1);
-        for (let j = 0; j < numItems; j++) {
-          items[strTime].push({
-            name: 'Item for ' + strTime + ' #' + j,
-            height: Math.max(50, Math.floor(Math.random() * 150))
-          });
-        }
-      }
+  useEffect(() => {
+    async function getAppointments() {
+      const doctorId = route.params ? route.params.doctorId : undefined;
+      const responseConfirmed = await api.get(`appointment/confirmedAppointments/${doctorId}`);
+      setConfirmedAppointments(responseConfirmed.data)
     }
-    const newItems = {};
-    Object.keys(items).forEach(key => {newItems[key] = items[key];});
-    setItems(newItems);
+
+    getAppointments();
+  }, []);
+
+  const loadItems = async (day) => {
+    const selectedDay = moment(day.timestamp).format("YYYY-MM-DD")
+    let ArrayHelp = []
+    var obj = {};
+
+    ArrayHelp.push({
+      hours: [
+        {
+          hour: '09.00h',
+          available: true,
+        },
+        {
+          hour: '11.30h',
+          available: true,
+        },
+        {
+          hour: '12.00h',
+          available: false,
+        },
+        {
+          hour: '13.00h',
+          available: false,
+        },
+        {
+          hour: '14.00h',
+          available: false
+        }
+      ]
+    })
+
+    obj[selectedDay] = ArrayHelp;
+
+    setItems(obj)
   }
 
-  const renderItem = (props)  => {
-    console.log(props);
+  const renderItem = (item) => {
     return (
-      <TouchableOpacity style={{marginTop: 17, marginRight: 10}}>
-        <Container>
-          <View style={{flexDirection: 'row', justifyContent: "space-between", alignItems: 'center'}}>
-            <HeaderText>
-              {props.name}
-            </HeaderText>
-            <Logo source={logo} resizeMode="contain" />
-          </View>
-        </Container>
-      </TouchableOpacity>
-  )}
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: 'center',
+            alignSelf: 'center',
+            marginTop: 17,
+            marginRight: 10
+        }}>
+          <HeaderText>
+            Selecione o Horário
+          </HeaderText>
+          {item.hours.map((hour, index) => (
+            <Badge
+              key={index}
+              backgroundColor={
+                colors.background,
+                hourSelected.id === index ? colors.success : colors.background
+              }
+              borderColor={
+                hour.available ? colors.success : colors.danger
+              }
+              onPress={() => {
+                !hour.available && Alert.alert("Horário não disponível")
+                hour.available && setHoursSelected({id: index, hour: hour.hour})
+              }}
+            >
+              <BadgeLabel
+                color={
+                  hour.available ?
+                    hourSelected.id === index ?
+                    colors.background : colors.success
+                  : colors.danger
+              }>
+                {hour.hour}
+              </BadgeLabel>
+            </Badge>
+          ))}
+      </View>
+    )
+  }
 
   const handleConsult = async () => {
-    const response = await api.get('medicalInfo/show')
-    if (response.status === 204) {
-      setShowModal(true);
+    const doctorId = route.params ? route.params.doctorId : undefined;
+    const clinicId = route.params ? route.params.clinicId : undefined;
+    const userId = await getIdKey();
+
+    console.log(doctorId);
+    console.log(clinicId);
+    console.log(userId);
+
+
+    // const { status } = await api.get('medicalInfo/show')
+    // if (status === 204) {
+    //   setShowModal(true);
+    // }
+    const data = {
+      clinic_id: 1,
+      doctor_id: 1,
+      user_id: 1,
+      consultation_schedule: '2020-11-29 09:00:00'
     }
-    else navigation.navigate('Schedule')
+
+    try {
+      const response = await api.post('appointment/create', data)
+
+      if (response.status) {
+        console.log('deu certo');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
+  const handleDayPress = (day) => {
+    loadItems(day)
+    setDaySelected(day.dateString)
+    setHoursSelected({hour: ''})
   }
 
   return (
     <>
-      <Container
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      >
+      <Container>
         <ScrollView>
           <HeaderText>Selecione a data para consulta</HeaderText>
           <Agenda
             items={items}
             loadItemsForMonth={loadItems}
-            selected={'2020-01-01'}
-            renderItem={memoizedValue}
+            selected={Date.now()}
+            renderItem={renderItem}
             minDate={'2019-05-10'}
             maxDate={'2025-05-30'}
-            onDayPress={(day) => setDaySelected(day.dateString)}
+            onDayPress={(day) => handleDayPress(day)}
             pastScrollRange={10}
             futureScrollRange={10}
             style={{height: 300}}
@@ -134,18 +213,21 @@ export default function Shedule({navigation}) {
               textDayHeaderFontSize: 16
             }}
           />
-
           <Row>
-            <HeaderText>DIA SELECIONADO:</HeaderText>
-            <HeaderText>{daySelected}</HeaderText>
+            <HeaderText>Dia Selecionado:</HeaderText>
+            <HeaderText>
+              {daySelected &&
+                moment(daySelected).locale('pt-br').format('L')
+              }
+            </HeaderText>
           </Row>
           <Row>
-            <HeaderText>HORÁRIO:</HeaderText>
-            <HeaderText>06:20 AM</HeaderText>
+            <HeaderText>Horário:</HeaderText>
+            <HeaderText>{hourSelected.hour}</HeaderText>
           </Row>
-            <Button onPress={handleConsult}>
-              <ButtonText>solicitar agendamento</ButtonText>
-            </Button>
+          <Button onPress={handleConsult}>
+            <ButtonText>solicitar agendamento</ButtonText>
+          </Button>
         </ScrollView>
       </Container>
       <ModalMedicalInfo

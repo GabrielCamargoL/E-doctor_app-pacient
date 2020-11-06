@@ -16,6 +16,7 @@ import Home from './pages/Home';
 import Options from './pages/Options';
 import Evaluation from './pages/Evaluation';
 import Schedule from './pages/Schedule';
+import MySchedule from './pages/MySchedule';
 
 import RegisterPatient from './pages/RegisterPatient';
 import RegisterStep2 from './pages/RegisterPatient/RegisterStep2';
@@ -128,6 +129,13 @@ export default function Routes() {
         name="Schedule"
         component={Schedule}
       />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="MySchedule"
+        component={MySchedule}
+      />
+
       <Stack.Screen
         options={{ title: 'Dúvidas' }}
         name="Doubt"

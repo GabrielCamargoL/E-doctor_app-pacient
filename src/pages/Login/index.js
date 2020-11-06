@@ -27,6 +27,7 @@ import {
 import { colors, general, fonts } from '../../styles';
 
 import api from '../../services/api';
+import { setIdKey, getToken } from '../../services/auth';
 
 import Lottie from 'lottie-react-native';
 import loadingHeart from '../../assets/loadingHeart.json';
@@ -43,7 +44,7 @@ export default function Login({ navigation }) {
   }, []);
 
   async function verifyToken() {
-    const token = await AsyncStorage.getItem('token');
+    const token = await getToken();
     setLoad(true)
 
     if (token) {
@@ -62,6 +63,7 @@ export default function Login({ navigation }) {
       if (response.data) {
         await AsyncStorage.setItem('token', response.data.token.token);
         await AsyncStorage.setItem('auth_id', response.data.user.id.toString());
+        await setIdKey(response.data.user.id);
         await AsyncStorage.setItem('username', response.data.user.username);
         await AsyncStorage.setItem('surname', response.data.user.surname);
         await AsyncStorage.setItem('email', response.data.user.email);

@@ -42,15 +42,17 @@ export default function DetailsDoctor({}) {
 
 
   function handleEvaluation () {
+    const doctorId = route.params ? route.params.doctorId : undefined;
     navigation.navigate('Evaluation', {
-      doctorId
+      doctorId,
     })
   }
 
   const handleShedule = () => {
     const doctorId = route.params ? route.params.doctorId : undefined;
     navigation.navigate('Schedule', {
-      doctorId
+      doctorId,
+      clinicId: doctor.clinic.id,
     })
   }
 

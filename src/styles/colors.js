@@ -8,6 +8,11 @@ const colors = {
   primary_20:'rgba(121, 21, 193, 0.2)',
   black:'#000',
   gray: '#99879D',
+  cyan:"#33bdff",
+  danger:'#DC143C',
+  success:"#2dce89",
+  light:"#9586A8"
+
 };
 
 export default colors;

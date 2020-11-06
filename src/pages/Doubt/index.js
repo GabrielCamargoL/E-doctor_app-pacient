@@ -40,10 +40,10 @@ export default function Dobout({navigation}) {
           <>
             {doubt.map(doubt => (
               <DoubtCard
-              key={doubt.id}
-              navigation={navigation}
-              data={doubt}
-              doubtId={doubt.id}
+                key={doubt.id}
+                navigation={navigation}
+                data={doubt}
+                doubtId={doubt.id}
               />
             ))}
           </>

@@ -34,7 +34,7 @@ export default function Options({ navigation }) {
           <OptionsText>Dependentes</OptionsText>
         </TouchableOptions>
 
-        <TouchableOptions onPress={() => {}}>
+        <TouchableOptions onPress={() => navigation.navigate('MySchedule')}>
           <OptionsText>Minha Agenda</OptionsText>
         </TouchableOptions>
 
