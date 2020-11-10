@@ -6,44 +6,53 @@ import {
   Row,
   Col,
   LabelInput,
-  InputLabel,
-  InputContainer,
-  ChangeData,
   ButtonEdit,
   ButtonEditText,
   ButtonEditView,
+  Switch,
 } from './styles';
 
 import { Text, View, StyleSheet, Button, CheckBox } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import InputMask from '../../components/Form/InputMask';
+import Input from '../../components/Form/Input';
 
 import api from '../../services/api';
+import apiCep from '../../services/cep';
 
 export default function ProfilePatient({ navigation, routes }) {
   const [refreshing, setRefreshing] = React.useState(false);
+  const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [phone, setPhone] = useState('');
-  const [cep, setCep] = useState('');
+
+  // Address - Cep
+  const [zip_code, setZipCode] = useState('');
+  const [zipCodeError, setZipCodeError] = useState('');
   const [neighborhood, setNeighborhood] = useState('');
+  const [neighborhoodError, setNeighborhoodError] = useState('');
   const [street, setStreet] = useState('');
+  const [streetError, setStreetError] = useState('');
   const [number, setNumber] = useState('');
-  const [HouseWithoutNumber, setHouseWithoutNumber] = useState(false);
+  const [numberError, setNumberError] = useState('');
+  const [haveNumber, setHaveNumber] = useState(true);
   const [complement, setComplement] = useState('');
   const [uf, setUf] = useState('');
+  const [ufError, setUfError] = useState('');
   const [city, setCity] = useState('');
-  const [user, setUser] = useState([]);
+  const [cityError, setCityError] = useState('');
 
   const getUserAuthData = async () => {
     try {
       setRefreshing(true);
       const response = await api.get('/patientAuth/getUser');
       if (response.data) {
-        setUser(response.data);
+        setId(response.data.id);
         setName(response.data.username);
         setSurname(response.data.surname);
         setPhone(response.data.phone);
-        setCep(response.data.zip_code);
+        setZipCode(response.data.zip_code);
         setNeighborhood(response.data.neighborhood);
         setStreet(response.data.street);
         setNumber(response.data.house_number);
@@ -55,6 +64,74 @@ export default function ProfilePatient({ navigation, routes }) {
     } catch (err) {
       console.log(`aaaaaaaaaa ${err}`);
     }
+  };
+
+  async function searchZipCodeAddress(cepReported = '') {
+    try {
+      setZipCode(cepReported);
+      resetFields();
+      if (cepReported.length < 9) {
+        return;
+      }
+      const response = await apiCep.get(`/${cepReported}/json`);
+
+      const {logradouro, bairro, localidade, uf} = response.data;
+
+      if (response.data.erro) {
+        Alert.alert(
+          'Atenção',
+          'Não identificamos nenhum endereço relacionado ao CEP. Digite manualmente ou tente novamente.',
+          [
+            {
+              text: 'OK',
+            },
+          ],
+        );
+        setZipCode('');
+      } else {
+        setStreet(logradouro);
+        setNeighborhood(bairro);
+        setCity(localidade);
+        setUf(uf);
+        clearError();
+      }
+    } catch (err) {
+      console.log(err);
+      setZipCode('');
+      Alert.alert(
+        'Atenção',
+        'Não identificamos nenhum endereço relacionado ao CEP. Digite manualmente ou tente novamente.',
+        [
+          {
+            text: 'OK',
+          },
+        ],
+      );
+    }
+  }
+
+  useEffect(() => {
+    setNumber(haveNumber ? '' : 'SN');
+    setNumberError('');
+  }, [haveNumber]);
+
+  const clearError = () => {
+    setZipCodeError('');
+    setUfError('');
+    setCityError('');
+    setNeighborhoodError('');
+    setStreetError('');
+    setNumberError('');
+  };
+
+  const resetFields = () => {
+    setUf('');
+    setCity('');
+    setNeighborhood('');
+    setStreet('');
+    setNumber('');
+    setComplement('');
+    setHaveNumber(true);
   };
 
   useEffect(() => {
@@ -72,14 +149,14 @@ export default function ProfilePatient({ navigation, routes }) {
   const handleEditUser = async () => {
     try {
       setRefreshing(true);
-      const response = await api.put('patientAuth/users/1', {
+      const response = await api.put(`patientAuth/users/${id}`, {
         username: name,
         surname,
         phone,
-        zip_code: cep,
+        zip_code,
         neighborhood,
         street,
-        house_number: HouseWithoutNumber ? number : 'SN',
+        house_number: haveNumber ? number : 'SN',
         complement_address: complement,
         state: uf,
         city
@@ -106,136 +183,115 @@ export default function ProfilePatient({ navigation, routes }) {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <Row>
-          <InputContainer>
-            <LabelInput>Nome</LabelInput>
-            <InputLabel
-              placeholderTextColor="#A8A8A8"
-              value={name}
-              onChangeText={setName}
-            />
-          </InputContainer>
-        </Row>
+          <LabelInput>Nome</LabelInput>
+          <Input
+            placeholderTextColor="#A8A8A8"
+            value={name}
+            onChangeText={setName}
+          />
 
-        <Row>
-          <InputContainer>
-            <LabelInput>Sobrenome</LabelInput>
-            <InputLabel
-              placeholderTextColor="#A8A8A8"
-              value={surname}
-              onChangeText={setSurname}
-            />
-          </InputContainer>
-        </Row>
+          <LabelInput>Sobrenome</LabelInput>
+          <Input
+            placeholderTextColor="#A8A8A8"
+            value={surname}
+            onChangeText={setSurname}
+          />
 
-        <Row>
-          <InputContainer>
-            <LabelInput> Telefone </LabelInput>
-            <InputLabel
-              placeholderTextColor="#A8A8A8"
-              value={phone}
-              onChangeText={setPhone}
-            />
-          </InputContainer>
-        </Row>
+          <LabelInput> Telefone </LabelInput>
+          <Input
+            placeholderTextColor="#A8A8A8"
+            value={phone}
+            onChangeText={setPhone}
+          />
 
-        <Row>
-          <InputContainer>
-            <LabelInput>CEP</LabelInput>
-            <InputLabel
-              placeholderTextColor="#A8A8A8"
-              value={cep}
-              onChangeText={setCep}
-            />
-          </InputContainer>
-        </Row>
+          <LabelInput>CEP</LabelInput>
+          <InputMask
+            placeholderTextColor="#A8A8A8"
+            value={zip_code}
+            type={'zip-code'}
+            placeholderError={zipCodeError}
+            placeholderTextColor={zipCodeError && error}
+            onChangeText={searchZipCodeAddress}
+          />
 
-        <Row>
-          <InputContainer>
-            <LabelInput>Bairro</LabelInput>
-            <InputLabel
-              placeholderTextColor="#A8A8A8"
-              value={neighborhood}
-              onChangeText={setNeighborhood}
-            />
-          </InputContainer>
-        </Row>
+          <LabelInput>Bairro</LabelInput>
+          <Input
+            placeholderTextColor="#A8A8A8"
+            value={neighborhood}
+            placeholderError={neighborhoodError}
+            onChangeText={setNeighborhood}
+            editable={!neighborhood && !neighborhood}
+          />
 
-        <Row>
-          <InputContainer>
-            <LabelInput style={{ fontSize: 16 }}>Logradouro</LabelInput>
-            <InputLabel
-              placeholderTextColor="#A8A8A8"
-              value={street}
-              onChangeText={setStreet}
-            />
-          </InputContainer>
-        </Row>
+          <LabelInput style={{ fontSize: 16 }}>Logradouro</LabelInput>
+          <Input
+            placeholderTextColor="#A8A8A8"
+            placeholderError={streetError}
+            value={street}
+            onChangeText={setStreet}
+            editable={!street && !street}
+          />
 
-        <Row style={{ alignItems: 'center', justifyContent: 'center' }}>
-          <Col style={{ width: '45%' }}>
-            <InputContainer>
+          <Row style={{ alignItems: 'center' }}>
+            <Col style={{ width: '35%' }}>
               <LabelInput>Número</LabelInput>
-              <InputLabel
+              <Input
                 placeholderTextColor="#A8A8A8"
+                placeholderError={numberError}
                 value={number}
                 onChangeText={setNumber}
+                keyboardType="number-pad"
               />
-            </InputContainer>
-          </Col>
+            </Col>
 
-          <CheckBox
-            value={HouseWithoutNumber}
-            onValueChange={setHouseWithoutNumber}
-          />
-          <LabelInput> Endereço sem Número</LabelInput>
-        </Row>
-
-        <Row>
-          <InputContainer>
-            <LabelInput>Complemento</LabelInput>
-            <InputLabel
-              placeholderTextColor="#A8A8A8"
-              value={complement}
-              onChangeText={setComplement}
+            <Switch
+              onValueChange={() => setHaveNumber(!haveNumber)}
+              value={!haveNumber}
             />
-          </InputContainer>
-        </Row>
+            <LabelInput> Endereço sem Número</LabelInput>
+          </Row>
 
-        <Row>
-          <Col style={{ width: '20%' }}>
-            <InputContainer>
+          <LabelInput>Complemento</LabelInput>
+          <Input
+            placeholderTextColor="#A8A8A8"
+            value={complement}
+            onChangeText={setComplement}
+          />
+
+          <Row style={{justifyContent: 'space-between'}}>
+            <Col style={{ width: '15%' }}>
               <LabelInput>UF</LabelInput>
-              <InputLabel
+              <Input
                 placeholderTextColor="#A8A8A8"
+                placeholderError={ufError}
                 value={uf}
                 onChangeText={setUf}
+                editable={!uf && !uf}
               />
-            </InputContainer>
-          </Col>
+            </Col>
 
-          <Col style={{ width: '80%' }}>
-            <InputContainer>
+            <Col style={{ width: '80%' }}>
               <LabelInput>Cidade</LabelInput>
-              <InputLabel
-                placeholderTextColor="#A8A8A8"
-                value={city}
-                onChangeText={setCity}
-              />
-            </InputContainer>
-          </Col>
-        </Row>
-        <ButtonEditView>
-          <ButtonEdit onPress={handleEditUser}>
-            <ButtonEditText>EDITAR DADOS</ButtonEditText>
-          </ButtonEdit>
-        </ButtonEditView>
+                <Input
+                  placeholderTextColor="#A8A8A8"
+                  placeholderError={cityError}
+                  value={city}
+                  onChangeText={setCity}
+                  editable={!city && !city}
+                />
+            </Col>
+          </Row>
+          <ButtonEditView>
+            <ButtonEdit onPress={handleEditUser}>
+              <ButtonEditText>EDITAR DADOS</ButtonEditText>
+            </ButtonEdit>
+          </ButtonEditView>
 
-        <Row style={{ justifyContent: 'center' }}>
+        {/* <Row style={{ justifyContent: 'center' }}>
           <TouchableOpacity onPress={handleEditPassword}>
             <ChangeData>ALTERAR SENHA</ChangeData>
           </TouchableOpacity>
-        </Row>
+        </Row> */}
       </Container>
     </>
   );

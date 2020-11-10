@@ -8,7 +8,6 @@ import {
   Container,
   Row,
   LabelInput,
-  InputLabel,
   InputContainer,
   ButtonSaveView,
   ButtonSave,
@@ -16,6 +15,8 @@ import {
 } from './styles';
 
 import { Alert } from 'react-native';
+import Input from '../../components/Form/Input';
+
 
 import api from '../../services/api';
 
@@ -94,86 +95,62 @@ export default function MedicalInfo() {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <Row>
-          <InputContainer>
-            <LabelInput>Peso</LabelInput>
-            <InputLabel
-              placeholder="XX.XX kg"
-              keyboardType="numeric"
-              returnKeyType="go"
-              placeholderTextColor="#A8A8A8"
-              value={`${weight}`}
-              onChangeText={setWeight}
-            />
-          </InputContainer>
-        </Row>
+        <LabelInput>Peso</LabelInput>
+        <Input
+          placeholder="XX.XX kg"
+          keyboardType="numeric"
+          returnKeyType="go"
+          placeholderTextColor="#A8A8A8"
+          value={`${weight?? ''}`}
+          onChangeText={setWeight}
+        />
 
-        <Row>
-          <InputContainer>
-            <LabelInput>Altura</LabelInput>
-            <InputLabel
-              placeholder="X.XX metros"
-              keyboardType="numeric"
-              returnKeyType="go"
-              placeholderTextColor="#A8A8A8"
-              value={`${height}`}
-              onChangeText={setHeight}
-            />
-          </InputContainer>
-        </Row>
+        <LabelInput>Altura</LabelInput>
+        <Input
+          placeholder="X.XX metros"
+          keyboardType="numeric"
+          returnKeyType="go"
+          placeholderTextColor="#A8A8A8"
+          value={`${height?? ''}`}
+          onChangeText={setHeight}
+        />
 
-        <Row>
-          <InputContainer>
-            <LabelInput>Tipo Sanguíneo</LabelInput>
-            <InputLabel
-              placeholder="X"
-              placeholderTextColor="#A8A8A8"
-              value={bloodType?? ''}
-              onChangeText={setBloodType}
-            />
-          </InputContainer>
-        </Row>
+        <LabelInput>Tipo Sanguíneo</LabelInput>
+        <Input
+          placeholder="X"
+          placeholderTextColor="#A8A8A8"
+          value={bloodType?? ''}
+          onChangeText={setBloodType}
+        />
 
-        <Row>
-          <InputContainer>
-            <LabelInput>Alergia</LabelInput>
-            <InputLabel
-              placeholder="Descreva aqui..."
-              placeholderTextColor="#A8A8A8"
-              value={allergy?? ''}
-              onChangeText={setAllergy}
-            />
-          </InputContainer>
-        </Row>
+        <LabelInput>Alergia</LabelInput>
+        <Input
+          placeholder="Descreva aqui..."
+          placeholderTextColor="#A8A8A8"
+          value={allergy?? ''}
+          onChangeText={setAllergy}
+        />
 
-        <Row>
-          <InputContainer>
-            <LabelInput >Medicamentos de uso frequente</LabelInput>
-            <InputLabel
-              placeholder="Descreva aqui..."
-              placeholderTextColor="#A8A8A8"
-              value={medicine?? ''}
-              onChangeText={setMedicine}
-            />
-          </InputContainer>
-        </Row>
+        <LabelInput >Medicamentos de uso frequente</LabelInput>
+        <Input
+          placeholder="Descreva aqui..."
+          placeholderTextColor="#A8A8A8"
+          value={medicine?? ''}
+          onChangeText={setMedicine}
+        />
 
-        <Row>
-          <InputContainer>
-            <LabelInput>Problemas de saúde</LabelInput>
-            <InputLabel
-              placeholder="Descreva aqui..."
-              placeholderTextColor="#A8A8A8"
-              value={disease?? ''}
-              onChangeText={setDisease}
-            />
-          </InputContainer>
-        </Row>
+        <LabelInput>Problemas de saúde</LabelInput>
+        <Input
+          placeholder="Descreva aqui..."
+          placeholderTextColor="#A8A8A8"
+          value={disease?? ''}
+          onChangeText={setDisease}
+        />
 
         <ButtonSaveView>
-            <ButtonSave onPress={handleMedicalInfo}>
-              <ButtonSaveText>SALVAR</ButtonSaveText>
-            </ButtonSave>
+          <ButtonSave onPress={handleMedicalInfo}>
+            <ButtonSaveText>SALVAR</ButtonSaveText>
+          </ButtonSave>
         </ButtonSaveView>
 
       </Container>

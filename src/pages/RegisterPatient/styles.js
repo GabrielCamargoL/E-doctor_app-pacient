@@ -138,3 +138,5 @@ export const AccessPhotosText = styled.Text`
   text-align:center;
   color: #FFF;
 `;
+
+export const Switch = styled.Switch``;

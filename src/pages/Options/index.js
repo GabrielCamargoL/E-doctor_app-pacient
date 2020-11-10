@@ -8,12 +8,18 @@ import {
 
 import {Icon} from 'native-base';
 
-import api from '../../services/api';
-
+import {signOut} from '../../services/auth';
 
 export default function Options({ navigation }) {
 
-  const [name, setName] = useState('');
+  const handleLogout = async () => {
+    try {
+      signOut();
+      navigation.navigate('Login')
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return(
     <>
@@ -42,7 +48,7 @@ export default function Options({ navigation }) {
           <OptionsText>Ficha médica</OptionsText>
         </TouchableOptions>
 
-        <TouchableOptions onPress={() => {}}>
+        <TouchableOptions onPress={handleLogout}>
           <Icon type='FontAwesome' name='power-off'
             style={{marginRight:5, fontSize:22}}
           />

@@ -24,7 +24,7 @@ export const setSessionId = async (id) => {
   await AsyncStorage.setItem(SESSION_ID, id);
 };
 
-export const logout = async () => {
+export const signOut = async () => {
   await AsyncStorage.removeItem(TOKEN_KEY);
   await AsyncStorage.removeItem(KEY_ID);
   await AsyncStorage.clear();

@@ -2,7 +2,8 @@ import styled from 'styled-components/native';
 import {colors,fonts} from './../../styles'
 
 export const Container = styled.ScrollView.attrs({
-  paddingHorizontal: 10,
+  paddingHorizontal: 20,
+  paddingVertical: 20
 })`
   flex:1;
   background-color: #fff;
@@ -17,13 +18,6 @@ export const Col = styled.View`
   flex-direction: column;
 `;
 
-export const InputContainer = styled.View.attrs({
-  paddingHorizontal: 10,
-})`
-  flex: 1;
-  height: 70
-`;
-
 export const LabelInput = styled.Text`
   font-size:${fonts.input};
   font-weight:600;
@@ -31,22 +25,9 @@ export const LabelInput = styled.Text`
   margin-left:5px;
 `;
 
-export const InputLabel = styled.TextInput`
-  border-width: 1px;
-  border-color: #000;
-  height: 40px;
-  border-radius: 10px;
-  padding-left: 10px;
-  width: 100%;
-`;
-
-export const ChangeData = styled.Text`
-  font-size:14px;
-  color: #000;
-`;
-
 export const ButtonEditView = styled.View`
   align-self: center;
+  margin-top:5%;
 `;
 
 export const ButtonEdit = styled.TouchableOpacity`
@@ -64,3 +45,5 @@ export const ButtonEditText = styled.Text`
   text-align:center;
   color: #FFF;
 `;
+
+export const Switch = styled.Switch``;

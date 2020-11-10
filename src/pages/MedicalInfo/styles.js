@@ -2,7 +2,8 @@ import styled from 'styled-components/native';
 import {colors,fonts} from '../../styles'
 
 export const Container = styled.ScrollView.attrs({
-  paddingHorizontal: 10,
+  paddingHorizontal: 20,
+  paddingVertical: 20,
 })`
   flex:1;
   background-color: #FFF;

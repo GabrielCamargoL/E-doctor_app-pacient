@@ -15,10 +15,12 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import api from '../../services/api';
 
+import Input from '../../components/Form/Input';
 
 export default function RegisterPatient({ navigation }) {
 
-  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [surname, setSurname] = useState('');
   const [cpf, setCpf] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -29,7 +31,8 @@ export default function RegisterPatient({ navigation }) {
   async function handleAdvance() {
     navigation.navigate('RegisterStep2', {
       patientInfo: {
-        name,
+        username,
+        surname,
         cpf,
         email,
         phone,
@@ -46,12 +49,25 @@ export default function RegisterPatient({ navigation }) {
         <Row>
           <InputContainer>
             <LabelInput>Nome</LabelInput>
-            <InputLabel
-              placeholder="José da Silva"
+            <Input
+              placeholder="Nome"
               placeholderTextColor="#A8A8A8"
               keyboardType="email-address"
-              value={name}
-              onChangeText={setName}
+              value={username}
+              onChangeText={setUsername}
+            />
+          </InputContainer>
+        </Row>
+
+        <Row>
+          <InputContainer>
+            <LabelInput>Sobrenome</LabelInput>
+            <Input
+              placeholder="Sobrenome"
+              placeholderTextColor="#A8A8A8"
+              keyboardType="email-address"
+              value={surname}
+              onChangeText={setSurname}
             />
           </InputContainer>
         </Row>
@@ -59,7 +75,7 @@ export default function RegisterPatient({ navigation }) {
         <Row>
           <InputContainer>
             <LabelInput> CPF </LabelInput>
-            <InputLabel
+            <Input
               placeholder="999999999-99"
               placeholderTextColor="#A8A8A8"
               keyboardType="default"
@@ -74,7 +90,7 @@ export default function RegisterPatient({ navigation }) {
         <Row>
           <InputContainer>
             <LabelInput>E-mail</LabelInput>
-            <InputLabel
+            <Input
               placeholder="josé@email.com"
               placeholderTextColor="#A8A8A8"
               keyboardType="email-address"
@@ -87,7 +103,7 @@ export default function RegisterPatient({ navigation }) {
         <Row>
           <InputContainer>
             <LabelInput>Telefone</LabelInput>
-            <InputLabel
+            <Input
               placeholder="99999-9999"
               placeholderTextColor="#A8A8A8"
               keyboardType="phone-pad"
@@ -100,13 +116,11 @@ export default function RegisterPatient({ navigation }) {
         <Row>
           <InputContainer>
             <LabelInput style={{ fontSize: 16 }}>Senha</LabelInput>
-            <InputLabel
-              placeholder="********"
+            <Input
+              placeholder="Senha"
               placeholderTextColor="#A8A8A8"
-              keyboardType="email-address"
               value={password}
               secureTextEntry={true}
-              password={true}
               onChangeText={setPassword}
             />
           </InputContainer>
@@ -115,13 +129,11 @@ export default function RegisterPatient({ navigation }) {
         <Row>
           <InputContainer>
             <LabelInput>Confirme a senha</LabelInput>
-            <InputLabel
-              placeholder="********"
+            <Input
+              placeholder="Senha"
               placeholderTextColor="#A8A8A8"
-              keyboardType="email-address"
               value={passwordConfirm}
               secureTextEntry={true}
-              password={true}
               onChangeText={setPasswordConfirm}
             />
           </InputContainer>
