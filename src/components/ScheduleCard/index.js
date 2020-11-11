@@ -16,7 +16,6 @@ import {
 import moment from 'moment';
 import 'moment/min/locales'
 
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import ModalShedule from '../ModalShedule'
 
 const ScheduleCard = ({doubtId, data, navigation})  => {
