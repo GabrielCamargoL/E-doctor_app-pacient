@@ -20,6 +20,7 @@ import {fonts, colors} from '../../styles'
 import moment from 'moment';
 import 'moment/min/locales'
 
+import api from '../../services/api';
 import Modal from '../Modal';
 import Input from '../../components/Form/Input';
 
@@ -65,11 +66,11 @@ const ModalShedule =  ({
           {
             text: "Sim",
             onPress: () => {
-              api.put(`appointment/cancel/${id}`, {
+              api.put(`patientAuth/cancel/${id}`, {
                 reason: reason
               }).then((response) => {
                 alert('Consulta cancelada com sucesso.')
-                navigation.navigate('Home')
+                handleClose()
               })
             },
           },
