@@ -1,8 +1,9 @@
-import styled from 'styled-components/native'; 
-import {colors} from '../../styles'
+import styled from 'styled-components/native';
+import {colors, fonts} from '../../styles'
 
 export const Container = styled.ScrollView.attrs({
-  paddingHorizontal: 10,
+  paddingHorizontal: 20,
+  paddingVertical: 20
 })`
   flex: 1;
   background-color: ${colors.background};
@@ -39,52 +40,6 @@ export const Content = styled.View.attrs({
   background-color: ${colors.background};
   align-items: center;
   justify-content: center;
-  margin-top:15px;
-`;
-
-  export const Label = styled.Text`
-    color: #3b5998;
-    font-size: 30px;
-    font-family: Roboto-Bold;
-    letter-spacing: 1;
-  `;
-
-export const InputContainer = styled.View.attrs({
-  paddingHorizontal: 10,
-})`
-  flex: 1;
-  height: 65px;
-`;
-
-
-export const LabelContainer = styled.View.attrs({
-  paddingHorizontal: 10,
-})`
-  background-color: #fff;
-  top: 10px;
-  left: 25px;
-  z-Index: 50;
-  width:22%;
-`;
-
-export const InputLabel = styled.TextInput`
-  border-width: 1px;
-  border-color: #000;
-  height: 45px;
-  border-radius: 4px;
-  padding-left: 10px;
-  width: 100%;
-`;
-
-export const Input = styled.TextInput`
-  height: 45px;
-  width: 100%;
-  border-width: 1px;
-  border-color: #000;
-  border-radius: 4px;
-  margin-top: 10px;
-  padding-left: 10px;
-  color: #000;
 `;
 
 
@@ -92,7 +47,7 @@ export const Register = styled.Text`
   margin-top: 20px;
   color: #000;
   font-family: Roboto-Bold;
-  font-size: 18px;
+  font-size: ${fonts.input};
   letter-spacing: 1px;
 `;
 
@@ -107,25 +62,9 @@ export const Button = styled.TouchableOpacity`
   margin-top: 20px;
 `;
 
-export const TextButton = styled.Text`
-  font-family: Roboto-Bold;
-  font-size: 18px;
-  color: #fff;
-  letter-spacing: 0.1px;
-`;
-
-export const TextRecover = styled.Text`
-  margin-top: 10%;
-  color: #000;
-  font-family: Roboto-Bold;
-  font-size: 18px;
-  letter-spacing: 1px;
-`;
 export const Text = styled.Text`
-  margin-top: 2%;
   color: #000;
   font-family: Roboto-Bold;
-  font-size: 14px;
-  letter-spacing: 2;
-  opacity: 0.5;
+  font-size: ${fonts.input};
+  margin-left: 5px;
 `;

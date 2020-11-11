@@ -6,7 +6,6 @@ import {
   Image,
   ActivityIndicator,
   KeyboardAvoidingView,
-  Text,
 } from 'react-native';
 
 import {
@@ -15,22 +14,18 @@ import {
   TextLoad,
   Logo,
   Content,
-  Input,
   Button,
   Register,
-  TextRecover,
-  LabelContainer,
-  InputLabel,
-  InputContainer,
+  Text
 } from './styles';
 
-import { colors, general, fonts } from '../../styles';
 
 import api from '../../services/api';
 import { setIdKey, getToken } from '../../services/auth';
 
 import Lottie from 'lottie-react-native';
 import loadingHeart from '../../assets/loadingHeart.json';
+import Input from '../../components/Form/Input';
 
 import logo from '../../assets/logo.png';
 
@@ -99,25 +94,20 @@ export default function Login({ navigation }) {
         <>
           <Container>
             <Logo source={logo} resizeMode="contain" />
-            <InputContainer>
-              <LabelContainer>
-                <Text style={{ fontSize: 16 }}>Email</Text>
-              </LabelContainer>
-              <InputLabel
-                placeholder="jose@email.com"
+
+              <Text>Email</Text>
+              <Input
+                placeholder="Email"
                 placeholderTextColor="#A8A8A8"
                 keyboardType="email-address"
                 value={email}
                 onChangeText={setEmail}
               />
-            </InputContainer>
 
-            <InputContainer>
-              <LabelContainer>
-                <Text style={{ fontSize: 16 }}>Senha</Text>
-              </LabelContainer>
-              <InputLabel
-                placeholder="*****"
+
+              <Text>Senha</Text>
+              <Input
+                placeholder="Senha"
                 placeholderTextColor="#A8A8A8"
                 keyboardType="default"
                 password={true}
@@ -125,7 +115,6 @@ export default function Login({ navigation }) {
                 onChangeText={setPassword}
                 secureTextEntry={true}
               />
-            </InputContainer>
 
             <KeyboardAvoidingView behavior="height">
               <Content>

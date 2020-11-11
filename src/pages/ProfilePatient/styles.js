@@ -3,15 +3,14 @@ import {colors,fonts} from './../../styles'
 
 export const Container = styled.ScrollView.attrs({
   paddingHorizontal: 20,
-  paddingVertical: 20
+  paddingVertical: 20,
 })`
   flex:1;
   background-color: #fff;
 `;
 
 export const Row = styled.View`
-    flex-direction: row;
-    width:100%;
+  flex-direction: row;
 `;
 
 export const Col = styled.View`
@@ -27,7 +26,6 @@ export const LabelInput = styled.Text`
 
 export const ButtonEditView = styled.View`
   align-self: center;
-  margin-top:5%;
 `;
 
 export const ButtonEdit = styled.TouchableOpacity`

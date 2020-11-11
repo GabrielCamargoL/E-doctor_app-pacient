@@ -125,7 +125,7 @@ export default function Routes() {
         component={Evaluation}
       />
       <Stack.Screen
-        options={{ headerShown: false }}
+        options={{ title: 'Agendamento' }}
         name="Schedule"
         component={Schedule}
       />

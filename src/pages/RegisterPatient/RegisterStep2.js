@@ -9,7 +9,10 @@ import {
   HalfInput,
   InputContainer,
   Advance,
-  Switch
+  Switch,
+  ButtonEdit,
+  ButtonEditText,
+  ButtonEditView,
 } from './styles';
 
 import { AsyncStorage, Alert } from 'react-native';
@@ -196,7 +199,7 @@ export default function RegisterStep3({ navigation, route }) {
               placeholderTextColor="#A8A8A8"
               keyboardType="number-pad"
               value={house_number}
-              editable={!houseWithoutNumber}
+              editable={houseWithoutNumber}
               onChangeText={setHouseNumber}
             />
           </Col>
@@ -239,11 +242,11 @@ export default function RegisterStep3({ navigation, route }) {
           </Col>
         </Row>
 
-        <Row style={{ justifyContent: 'center' }}>
-          <TouchableOpacity onPress={handleSignUp}>
-            <Advance> Avançar </Advance>
-          </TouchableOpacity>
-        </Row>
+        <ButtonEditView>
+          <ButtonEdit onPress={handleSignUp}>
+            <ButtonEditText>Cadastrar</ButtonEditText>
+          </ButtonEdit>
+        </ButtonEditView>
 
       </Container>
     </>

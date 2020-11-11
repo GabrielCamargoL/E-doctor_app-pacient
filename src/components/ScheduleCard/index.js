@@ -13,13 +13,16 @@ import {
   SpecialtyLabel
 } from './styles';
 
+import moment from 'moment';
+import 'moment/min/locales'
+
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import ModalDoubt from '../ModalDoubt'
+import ModalShedule from '../ModalShedule'
 
 const ScheduleCard = ({doubtId, data, navigation})  => {
   const [showModal, setShowModal] = useState(false);
 
-  const handleDoubt = async () => {
+  const handleShedule = async () => {
     setShowModal(true);
   }
 
@@ -28,31 +31,30 @@ const ScheduleCard = ({doubtId, data, navigation})  => {
       <Container>
         <Card
           key={doubtId}
-          onPress={handleDoubt}
+          onPress={handleShedule}
         >
           <IconCard>
-            <Image source={{uri: data.path_avatar}} resizeMode="center"/>
+            <Image source={{uri: data.doctor.path_avatar}} resizeMode="center"/>
           </IconCard>
           <Data>
-            <NameLabel>Dr. Nelson Mandela</NameLabel>
-            <SpecialtyLabel>Oftalmologista</SpecialtyLabel>
+            <NameLabel>{data.doctor.username} {data.doctor.surname}</NameLabel>
+            <SpecialtyLabel>{data.doctor.specialty}</SpecialtyLabel>
 
-            <DateLabel>15/08/2020 - Quinta Feira</DateLabel>
-            <DateLabel>10:00h</DateLabel>
+            <DateLabel>{moment(data.consultation_schedule).locale('pt-br').format('llll')}</DateLabel>
           </Data>
-          <Badge>
-            <BadgeLabel>Agendado</BadgeLabel>
+          <Badge color={data.status == 'Pending' ? '#FB2' : '#09C1FB'}>
+            <BadgeLabel>{data.status == 'Pending' ? 'Solicitado' : 'Agendado'}</BadgeLabel>
           </Badge>
         </Card>
       </Container>
-      {/* <ModalDoubt
+      <ModalShedule
         isActive={true}
         visible={showModal}
         justifyContent={'center'}
         onClose={() => setShowModal(false)}
         navigation={navigation}
-        // data={data}
-      /> */}
+        data={data}
+      />
     </>
   );
 };

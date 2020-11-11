@@ -13,24 +13,24 @@ import api from '../../services/api';
 
 export default function MySchedule({ navigation }) {
   const [refreshing, setRefreshing] = React.useState(false);
-  const [doctors, setDoctors] = useState([]);
-  const [clinics, setClinics] = useState([]);
+  const [confirmedAppointments, setConfirmedAppointments] = useState([]);
+  const [pendingAppointments, setPendingAppointments] = useState([]);
 
   useEffect(() => {
-    getDoctors()
-    getClinic()
+    getConfirmedAppointments()
+    getPendingAppointments()
   }, [navigation]);
 
   const onRefresh = React.useCallback(() => {
-    getDoctors()
-    getClinic()
+    getConfirmedAppointments()
+    getPendingAppointments()
   }, []);
 
-  const getDoctors = async () => {
+  const getConfirmedAppointments = async () => {
     try {
       setRefreshing(true);
-      const response = await api.get('/doctorAuth/index');
-      setDoctors(response.data)
+      const response = await api.get('/patientAuth/confirmedAppointments');
+      setConfirmedAppointments(response.data)
       setRefreshing(false);
 
     }
@@ -39,11 +39,11 @@ export default function MySchedule({ navigation }) {
     }
   }
 
-  const getClinic = async () => {
+  const getPendingAppointments = async () => {
     try {
       setRefreshing(true);
-      const response = await api.get('/clinicAuth/index');
-      setClinics(response.data)
+      const response = await api.get('/patientAuth/pendingAppointments');
+      setPendingAppointments(response.data)
       setRefreshing(false);
     }
     catch (err) {
@@ -67,7 +67,7 @@ export default function MySchedule({ navigation }) {
                 <TabMenu>Agenda</TabMenu>
               </TabHeading>
             }>
-            {doctors.map(doctor => (
+            {confirmedAppointments.map(doctor => (
               <ScheduleCard
                 key={doctor.id}
                 navigation={navigation}
@@ -84,7 +84,7 @@ export default function MySchedule({ navigation }) {
               </TabHeading>
             }
             >
-            {doctors.map(doctor => (
+            {pendingAppointments.map(doctor => (
               <ScheduleCard
                 key={doctor.id}
                 navigation={navigation}

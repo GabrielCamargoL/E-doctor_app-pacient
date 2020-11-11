@@ -12,8 +12,6 @@ import {
   Switch,
 } from './styles';
 
-import { Text, View, StyleSheet, Button, CheckBox } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import InputMask from '../../components/Form/InputMask';
 import Input from '../../components/Form/Input';
 
@@ -240,10 +238,10 @@ export default function ProfilePatient({ navigation, routes }) {
                 placeholderError={numberError}
                 value={number}
                 onChangeText={setNumber}
+                editable={haveNumber}
                 keyboardType="number-pad"
               />
             </Col>
-
             <Switch
               onValueChange={() => setHaveNumber(!haveNumber)}
               value={!haveNumber}
@@ -272,15 +270,16 @@ export default function ProfilePatient({ navigation, routes }) {
 
             <Col style={{ width: '80%' }}>
               <LabelInput>Cidade</LabelInput>
-                <Input
-                  placeholderTextColor="#A8A8A8"
-                  placeholderError={cityError}
-                  value={city}
-                  onChangeText={setCity}
-                  editable={!city && !city}
-                />
+              <Input
+                placeholderTextColor="#A8A8A8"
+                placeholderError={cityError}
+                value={city}
+                onChangeText={setCity}
+                editable={!city && !city}
+              />
             </Col>
           </Row>
+
           <ButtonEditView>
             <ButtonEdit onPress={handleEditUser}>
               <ButtonEditText>EDITAR DADOS</ButtonEditText>

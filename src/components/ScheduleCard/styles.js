@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import {colors, general, fonts} from '../../styles'
 
 export const Container = styled.SafeAreaView.attrs({
-  paddingVertical: 10
+  paddingVertical: 30
 })`
   flex: 1;
   background-color: #f1f1f1;
@@ -10,7 +10,7 @@ export const Container = styled.SafeAreaView.attrs({
 
 export const Card = styled.TouchableOpacity`
   width: 100%;
-  height: 145px;
+  height: 90px;
   flex-direction: row;
   justify-content: space-evenly;
 `;
@@ -38,7 +38,7 @@ export const Badge = styled.View`
   align-self: flex-start;
   justify-content: center;
   padding: 10px;
-  background: #09C1FB;
+  background: ${props => props.color};
   border-radius: 20;
   width: 80px;
   height: 18px

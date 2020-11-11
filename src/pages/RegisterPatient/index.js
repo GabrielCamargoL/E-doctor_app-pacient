@@ -5,9 +5,11 @@ import {
   Row,
   SubTitle,
   LabelInput,
-  InputLabel,
   InputContainer,
   Advance,
+  ButtonEdit,
+  ButtonEditText,
+  ButtonEditView,
 } from './styles';
 
 import { Text, View, StyleSheet, Button } from 'react-native';
@@ -138,12 +140,11 @@ export default function RegisterPatient({ navigation }) {
             />
           </InputContainer>
         </Row>
-
-        <Row style={{ justifyContent: 'center' }}>
-          <TouchableOpacity onPress={() => handleAdvance()}>
-            <Advance>Avançar</Advance>
-          </TouchableOpacity>
-        </Row>
+        <ButtonEditView>
+          <ButtonEdit onPress={() => handleAdvance()}>
+            <ButtonEditText>Avançar</ButtonEditText>
+          </ButtonEdit>
+        </ButtonEditView>
       </Container>
     </>
   )

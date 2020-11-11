@@ -61,23 +61,23 @@ export default function Shedule({}) {
     ArrayHelp.push({
       hours: [
         {
-          hour: '09.00h',
+          hour: '09:00:00',
           available: true,
         },
         {
-          hour: '11.30h',
+          hour: '11:30:00',
           available: true,
         },
         {
-          hour: '12.00h',
+          hour: '12:00:00',
           available: false,
         },
         {
-          hour: '13.00h',
+          hour: '13:00:00',
           available: false,
         },
         {
-          hour: '14.00h',
+          hour: '14:00:00',
           available: false
         }
       ]
@@ -149,7 +149,7 @@ export default function Shedule({}) {
       clinic_id: 1,
       doctor_id: 1,
       user_id: 1,
-      consultation_schedule: '2020-11-29 09:00:00'
+      consultation_schedule: `${daySelected} ${hourSelected.hour}`
     }
 
     try {
@@ -224,9 +224,10 @@ export default function Shedule({}) {
           <Row>
             <HeaderText>Horário:</HeaderText>
             <HeaderText>{hourSelected.hour}</HeaderText>
+
           </Row>
           <Button onPress={handleConsult}>
-            <ButtonText>solicitar agendamento</ButtonText>
+            <ButtonText>Solicitar agendamento</ButtonText>
           </Button>
         </ScrollView>
       </Container>
