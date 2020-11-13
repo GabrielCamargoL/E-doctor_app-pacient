@@ -1,13 +1,9 @@
 import React, {useState, useEffect} from 'react';
 
-import {ScrollView, Text} from 'react-native';
-
-import api from '../../services/api';
-
 import {
   Container,
   Row,
-  Card,  
+  Card,
   NameLabel,
   Label,
   LabelDate,
@@ -15,38 +11,44 @@ import {
   Comment
 } from './styles';
 
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import logo from '../../assets/logo.png';
-import {colors, general, fonts} from '../../styles';
 
-const EvaluationCard = ({doctorId, doctorData, navigation}) => {
-  const goDetailsDoctor = () => {
-    console.log('tester');
-    navigation.navigate('DetailsDoctor');
-  };
+import moment from 'moment';
+import 'moment/min/locales'
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import {colors} from '../../styles';
+
+const EvaluationCard = ({doctorData, navigation}) => {
 
   return (
     <>
       <Container>
-        {doctorData.map((rating) => (
+      {doctorData.length === 0 ? (
+        <Label style={{textAlign: 'center'}}>
+          Esse doutor não possui avaliações
+        </Label>
+      ) : (
+        doctorData.map(rating => (
           <Card>
             <Row>
-              <NameLabel>{rating.name}</NameLabel>
-              <LabelDate>{rating.date}</LabelDate>
+              <NameLabel>{rating.user.username}</NameLabel>
+              <LabelDate>
+                {moment(rating.created_at).locale('pt-br').format('L')}
+              </LabelDate>
             </Row>
-            <Comment>{rating.comments}</Comment>
-            <Label>Avaliação</Label>  
+            <Comment>{rating.comment}</Comment>
+            <Label>Avaliação</Label>
             <Icons>
-              {Array(5)
+              {Array(Math.floor(rating.score))
                 .fill()
-                .map((icon) => (
+                .map((icon, index) => (
                   <>
-                    <Icon name="star" size={14} color={colors.primary_60} />{' '}
+                    <Icon name="star" key={index} size={14} color={colors.primary_60} />{' '}
                   </>
-                ))}
+              ))}
             </Icons>
           </Card>
-        ))}
+        ))
+      )}
       </Container>
     </>
   );

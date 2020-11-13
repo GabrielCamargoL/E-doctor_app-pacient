@@ -20,7 +20,7 @@ export default function ErrorLogin({ navigation }) {
           resizeMode="contain"
         />
         <Label>
-          Erro ao fazer login. Verifque sua conexão.
+          Erro ao fazer login. Verifique sua conexão.
         </Label>
         <Button onPress={() => navigation.navigate('Login')}>
           <ButtonText>

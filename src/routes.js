@@ -120,7 +120,7 @@ export default function Routes() {
         component={BottomTab}
       />
       <Stack.Screen
-        options={{ headerShown: true }}
+        options={{ title: "Avaliações"}}
         name="Evaluation"
         component={Evaluation}
       />

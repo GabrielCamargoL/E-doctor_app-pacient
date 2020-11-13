@@ -26,6 +26,7 @@ export default function Shedule({}) {
   const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation();
   const route = useRoute();
+  const [user, setUser] = useState([])
   const [confirmedAppointments, setConfirmedAppointments] = useState([]);
   const [items, setItems] = useState({});
 
@@ -44,14 +45,58 @@ export default function Shedule({}) {
   LocaleConfig.defaultLocale = 'br';
 
   useEffect(() => {
-    async function getAppointments() {
-      const doctorId = route.params ? route.params.doctorId : undefined;
-      const responseConfirmed = await api.get(`appointment/confirmedAppointments/${doctorId}`);
-      setConfirmedAppointments(responseConfirmed.data)
+    getAppointments();
+    getUserAuthData()
+  }, []);
+
+
+  const getUserAuthData = async () => {
+    try {
+      const response = await api.get('/patientAuth/getUser');
+      setUser(response.data);
+    } catch (err) {
+      console.log(`aaaaaaaaaa ${err}`);
+    }
+  };
+
+  const getAppointments = async () => {
+    const doctorId = route.params ? route.params.doctorId : undefined;
+    const responseConfirmed = await api.get(`appointment/confirmedAppointments/${doctorId}`);
+    setConfirmedAppointments(responseConfirmed.data)
+  }
+
+  const handleConsult = async () => {
+    const doctorId = route.params ? route.params.doctorId : undefined;
+    const clinicId = route.params ? route.params.clinicId : undefined;
+
+    // const { status } = await api.get('medicalInfo/show')
+    // if (status === 204) {
+    //   setShowModal(true);
+    // }
+    const data = {
+      clinic_id: doctorId,
+      doctor_id: clinicId,
+      user_id: user.id,
+      consultation_schedule: `${daySelected} ${hourSelected.hour}`
     }
 
-    getAppointments();
-  }, []);
+    try {
+      const response = await api.post('appointment/create', data)
+
+      if (response.status) {
+        console.log('deu certo');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
+  const handleDayPress = (day) => {
+    loadItems(day)
+    setDaySelected(day.dateString)
+    setHoursSelected({hour: ''})
+  }
 
   const loadItems = async (day) => {
     const selectedDay = moment(day.timestamp).format("YYYY-MM-DD")
@@ -129,45 +174,6 @@ export default function Shedule({}) {
           ))}
       </View>
     )
-  }
-
-  const handleConsult = async () => {
-    const doctorId = route.params ? route.params.doctorId : undefined;
-    const clinicId = route.params ? route.params.clinicId : undefined;
-    const userId = await getIdKey();
-
-    console.log(doctorId);
-    console.log(clinicId);
-    console.log(userId);
-
-
-    // const { status } = await api.get('medicalInfo/show')
-    // if (status === 204) {
-    //   setShowModal(true);
-    // }
-    const data = {
-      clinic_id: 1,
-      doctor_id: 1,
-      user_id: 1,
-      consultation_schedule: `${daySelected} ${hourSelected.hour}`
-    }
-
-    try {
-      const response = await api.post('appointment/create', data)
-
-      if (response.status) {
-        console.log('deu certo');
-      }
-    } catch (error) {
-      console.log(error);
-    }
-
-  }
-
-  const handleDayPress = (day) => {
-    loadItems(day)
-    setDaySelected(day.dateString)
-    setHoursSelected({hour: ''})
   }
 
   return (

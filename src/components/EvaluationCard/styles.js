@@ -8,13 +8,13 @@ export const Container = styled.SafeAreaView.attrs({
 
 export const Row = styled.View`
   flex-direction: row;
-  justify-content: space-between 
+  justify-content: space-between
 `;
 
-export const Card = styled.TouchableOpacity`
+export const Card = styled.View`
   width: 100%;
   height: 145px;
-  margin: 10px 0;  
+  margin: 10px 0;
   padding: 10px 10px;
   justify-content: space-between;
 `;

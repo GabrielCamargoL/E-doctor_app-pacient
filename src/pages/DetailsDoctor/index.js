@@ -89,8 +89,8 @@ export default function DetailsDoctor({}) {
             <SectionCompanyData>
               <HeaderText>{doctor.username} {doctor.surname}</HeaderText>
               <CompanyRate>
-                {Array(5).fill().map(icon => (
-                  <Icon name="star" size={14} color={colors.primary} />
+                {doctor.totalStars && Array(Math.floor(doctor.totalStars)).fill().map((icon, index) => (
+                  <Icon name="star" key={index} size={14} color={colors.primary} />
                 ))}
               </CompanyRate>
             </SectionCompanyData>

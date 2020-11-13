@@ -1,10 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect } from 'react';
 import {
-  StatusBar,
-  AsyncStorage,
   Image,
-  ActivityIndicator,
+  AsyncStorage,
   KeyboardAvoidingView,
 } from 'react-native';
 
@@ -40,12 +38,12 @@ export default function Login({ navigation }) {
 
   async function verifyToken() {
     const token = await getToken();
-    setLoad(true)
 
     if (token) {
+      setLoad(true)
       setTimeout(() => {navigation.replace('Home')}, 3000);
+      setLoad(false)
     }
-    setLoad(false)
   }
 
   async function handleLogin() {
