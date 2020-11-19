@@ -10,6 +10,7 @@ import {
   ButtonEditText,
   ButtonEditView,
   Switch,
+  Title
 } from './styles';
 
 import InputMask from '../../components/Form/InputMask';
@@ -181,6 +182,9 @@ export default function ProfilePatient({ navigation, routes }) {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
+          <Title style={{textAlign: 'left'}}>Perfil</Title>
+
+
           <LabelInput>Nome</LabelInput>
           <Input
             placeholderTextColor="#A8A8A8"

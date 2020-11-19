@@ -3,7 +3,8 @@ import {colors,fonts} from './../../styles'
 
 export const Container = styled.ScrollView.attrs({
   paddingHorizontal: 20,
-  paddingVertical: 20,
+  paddingVertical: 30,
+
 })`
   flex:1;
   background-color: #fff;
@@ -26,6 +27,7 @@ export const LabelInput = styled.Text`
 
 export const ButtonEditView = styled.View`
   align-self: center;
+  margin: 50px
 `;
 
 export const ButtonEdit = styled.TouchableOpacity`
@@ -45,3 +47,13 @@ export const ButtonEditText = styled.Text`
 `;
 
 export const Switch = styled.Switch``;
+
+export const Title = styled.Text`
+  margin-top: 20;
+  margin-bottom: 20;
+  font-family: Roboto-Bold;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18;
+  color: #767272;
+`;

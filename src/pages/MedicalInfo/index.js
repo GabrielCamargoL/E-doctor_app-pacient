@@ -12,6 +12,7 @@ import {
   ButtonSaveView,
   ButtonSave,
   ButtonSaveText,
+  Title
 } from './styles';
 
 import { Alert } from 'react-native';
@@ -95,6 +96,8 @@ export default function MedicalInfo() {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
+        <Title>Ficha Médica</Title>
+
         <LabelInput>Peso</LabelInput>
         <Input
           placeholder="XX.XX kg"

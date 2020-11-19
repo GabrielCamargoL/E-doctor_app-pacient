@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.ScrollView`
+export const Container = styled.ScrollView.attrs({
+  paddingVertical: 30
+})`
   flex: 1;
   margin-top:20px;
 `;

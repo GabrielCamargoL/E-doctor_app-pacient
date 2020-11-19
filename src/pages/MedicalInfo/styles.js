@@ -3,9 +3,8 @@ import {colors,fonts} from '../../styles'
 
 export const Container = styled.ScrollView.attrs({
   paddingHorizontal: 20,
-  paddingVertical: 20,
+  paddingVertical: 30,
 })`
-  flex:1;
   background-color: #FFF;
 `;
 
@@ -82,3 +81,12 @@ export const ButtonSaveText = styled.Text`
 `;
 
 
+export const Title = styled.Text`
+  margin-top: 20;
+  margin-bottom: 20;
+  font-family: Roboto-Bold;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18;
+  color: #767272;
+`;

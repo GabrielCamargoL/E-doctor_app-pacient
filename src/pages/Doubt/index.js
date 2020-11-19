@@ -36,6 +36,7 @@ export default function Dobout({navigation}) {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
+        <Title style={{textAlign: 'left'}}>Dúvidas</Title>
         {doubt.length > 0 ? (
           <>
             {doubt.map(doubt => (

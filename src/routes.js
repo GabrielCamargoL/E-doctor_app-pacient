@@ -1,15 +1,18 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Text, TouchableOpacity } from 'react-native';
 
 import { useNavigation, DrawerActions } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {  createDrawerNavigator } from '@react-navigation/drawer';
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+
+import CustomDrawer from './components/CustomDrawer'
 
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 import Login from './pages/Login';
+import ErrorLogin from './components/ErrorLogin';
 
 
 import Home from './pages/Home';
@@ -35,35 +38,52 @@ import EditPassword from './pages/ProfilePatient/EditPassword';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
-
-function BottomTab() {
+function DrawerNavigator() {
   return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-        let iconName;
+    <Drawer.Navigator
+      initialRouteName="Home"
+      drawerContent={props =>
+        <CustomDrawer {...props} />
+    }>
+      <Drawer.Screen
+        name="Home"
+        component={Home}
+      />
 
-        if (route.name === 'Home') {
-          iconName = focused
-            ? 'home'
-            : 'home';
-        } else if (route.name === 'Opções') {
-          iconName = focused ? 'bars' : 'bars';
-        }
-        // You can return any component that you like here!
-        return <Icon name={iconName} size={size} color={color} />;
-      },
-      })}
-      tabBarOptions={{
-        activeTintColor: '#7915c1',
-        inactiveTintColor: 'gray',
-      }}
-    >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Opções" component={Options} />
-    </Tab.Navigator>
-  );
+      <Drawer.Screen
+        options={{ title: 'Perfil' }}
+        name="ProfilePatient"
+        component={ProfilePatient}
+      />
+
+      <Drawer.Screen
+        options={{ title: 'Dúvidas' }}
+        name="Doubt"
+        component={Doubt}
+      />
+
+      {/* <Drawer.Screen
+        options={{ title: 'Prescrições' }}
+        name="AA"
+        component={Home}
+      /> */}
+
+       <Drawer.Screen
+        options={{ title: 'Ficha Médica' }}
+        name="MedicalInfo"
+        component={MedicalInfo}
+      />
+
+      <Drawer.Screen
+        options={{ headerShown: false, title: 'Minha Agenda' }}
+        name="MySchedule"
+        component={MySchedule}
+      />
+
+    </Drawer.Navigator>
+  )
 }
 
 export default function Routes() {
@@ -89,35 +109,35 @@ export default function Routes() {
         name="RegisterStep3"
         component={RegisterStep3}
       />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="ErrorLogin"
+        component={ErrorLogin}
+      />
+
       <Stack.Screen
         options={{ headerShown: false }}
         name="DetailsDoctor"
         component={DetailsDoctor}
       />
-      <Stack.Screen
-        options={{ title: 'Perfil' }}
-        name="ProfilePatient"
-        component={ProfilePatient}
-      />
+
       <Stack.Screen
         options={{ title: '' }}
         name="EditPassword"
         component={EditPassword}
       />
+
       <Stack.Screen
         options={{ title: 'Dependente' }}
         name="RegisterDependent"
         component={RegisterDependent}
       />
-       <Stack.Screen
-        options={{ title: 'Ficha Médica' }}
-        name="MedicalInfo"
-        component={MedicalInfo}
-      />
+
       <Stack.Screen
         options={{ headerShown: false }}
         name="Home"
-        component={BottomTab}
+        component={DrawerNavigator}
       />
       <Stack.Screen
         options={{ title: "Avaliações"}}
@@ -128,18 +148,6 @@ export default function Routes() {
         options={{ title: 'Agendamento' }}
         name="Schedule"
         component={Schedule}
-      />
-
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="MySchedule"
-        component={MySchedule}
-      />
-
-      <Stack.Screen
-        options={{ title: 'Dúvidas' }}
-        name="Doubt"
-        component={Doubt}
       />
 
     </Stack.Navigator>
