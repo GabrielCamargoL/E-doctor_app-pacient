@@ -24,6 +24,7 @@ export default function RegisterStep4({ navigation, route }) {
   let patientInfo = route.params.patientInfo;
 
   const [avatar, setAvatar] = useState({});
+
   const [success, setSuccess] = useState(false);
 
   async function AccessCamera() {
@@ -32,6 +33,7 @@ export default function RegisterStep4({ navigation, route }) {
       height: 400,
       cropping: true,
     }).then(file => {
+      console.log(file.path)
       setAvatar(file);
     });
   }
@@ -41,7 +43,7 @@ export default function RegisterStep4({ navigation, route }) {
       cropping: true,
       mediaType: 'photo',
     }).then(file => {
-      console.log(file)
+      console.log(file.path)
       setAvatar(file);
     });
   }
@@ -92,20 +94,12 @@ export default function RegisterStep4({ navigation, route }) {
 
       formData.append('image', {
         uri: avatar.path,
-        type: 'image/jpeg',
-        name: `${Date.now()}.jpg`
+        type: avatar.mime,
+        name: `${Date.now()}`,
       });
 
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      };
+      const response = await api.post(`/doctorAuth/uploadPhoto/2`, formData)
 
-      const response = await api.post(`/patientAuth/uploadSelfie/1`,
-        formData,
-        config
-      )
       console.log(response.data);
       return response.data;
     } catch (error) {
@@ -131,6 +125,7 @@ export default function RegisterStep4({ navigation, route }) {
 
             {
               Object.keys(avatar).length === 0 ?
+
                 <Avatar source={require('../../assets/Avatar.png')} />
                 :
                 <>
