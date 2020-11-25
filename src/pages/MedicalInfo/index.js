@@ -32,20 +32,32 @@ export default function MedicalInfo() {
   const [medicine, setMedicine] = useState('');
   const [disease, setDisease] = useState('')
   const [consult, setConsult] = useState(false)
+  const [medicalInfoEmpty, setMedicalInfoEmpty] = useState(false)
 
   const handleMedicalInfo = async () => {
     try {
       setRefreshing(true);
-      const response = await api.put('medicalInfo/update', {
+
+      const data = {
         weight,
         height,
         blood_type: bloodType,
         health_problems: disease,
         allergy,
         personal_medicine: medicine
-      })
+      }
+
+      let response = null
+      if (medicalInfoEmpty) {
+        response = await api.post('medicalInfo/create', data)
+      }
+      else {
+        response = await api.put('medicalInfo/update', data)
+      }
+
       setRefreshing(false);
       if (response.status == 200) {
+        setMedicalInfoEmpty(false)
         Alert.alert(
           'Sucesso',
           'Dados alterados com sucesso',
@@ -53,12 +65,12 @@ export default function MedicalInfo() {
             { text: 'Fechar',  onPress: consult ? navigation.goBack() : null }
           ],
           { cancelable: false }
-          )
-        }
-      } catch (error) {
-        console.log(error);
+        )
       }
+    } catch (error) {
+      console.log(error);
     }
+  }
 
   const getMedicalInfo = async () => {
     try {
@@ -71,6 +83,9 @@ export default function MedicalInfo() {
       setBloodType(data.blood_type)
       setDisease(data.health_problems)
       setRefreshing(false);
+
+      console.log(`${data} aa`);
+      if (!data) setMedicalInfoEmpty(true)
     } catch (error) {
       console.log('error', error);
     }

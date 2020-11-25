@@ -55,23 +55,23 @@ export default function Home({ navigation }) {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-         <ViewGoBackIcon onPress={() => navigation.openDrawer()}>
-            <GoBackIcon />
+        <ViewGoBackIcon onPress={() => navigation.openDrawer()}>
+          <GoBackIcon />
         </ViewGoBackIcon>
+
         <Tabs
           onChangeTab={onRefresh}
-          tabContainerStyle={styles.borderRadius}
-          tabBarUnderlineStyle={{borderBottomWidth:3, borderBottomColor: '#F5F'}}>
+          tabContainerStyle={styles.tab}
+          tabBarUnderlineStyle={{backgroundColor: 'transparent'}}
+          >
           <Tab
+            heading="Médicos"
             style={{backgroundColor:'#f1f1f1'}}
-            heading={
-
-              <TabHeading
-                activeTextStyle={styles.focus}
-                style={styles.tabHeading, styles.borderRadius}>
-                <TabMenu>Médicos</TabMenu>
-              </TabHeading>
-            }>
+            tabStyle={styles.tabHeadingLeft}
+            textStyle={{color: '#111'}}
+            activeTabStyle={styles.tabHeadingActiveLeft}
+            activeTextStyle={styles.tabHeadingActiveLeft}
+          >
             <Title>Conhece o doutor?</Title>
             <InputSearch
               paddingTop={5}
@@ -87,12 +87,12 @@ export default function Home({ navigation }) {
             ))}
           </Tab>
           <Tab
-            heading={
-              <TabHeading style={styles.tabHeading}>
-                <TabMenu>Consultórios</TabMenu>
-              </TabHeading>
-            }
-            >
+            heading="Consultórios"
+            style={{backgroundColor:'#f1f1f1'}}
+            tabStyle={styles.tabHeadingRigth}
+            textStyle={{color: '#111'}}
+            activeTabStyle={styles.tabHeadingActiveRigth}
+            activeTextStyle={styles.tabHeadingActiveRigth}>
             <Title>Busque por consultórios</Title>
             <InputSearch
               paddingTop={5}
@@ -114,26 +114,34 @@ export default function Home({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  tabHeading: {
-    backgroundColor: '#fff',
-    // borderTopLeftRadius: 50,
-    // borderBottomLeftRadius: 50,
-    // borderTopRightRadius: 50,
-    // borderBottomRightRadius: 50
-  },
-  borderRadius: {
-    flex: 1,
+  tab: {
+    backgroundColor: 'transparent',
     alignSelf : 'center',
     marginTop: 40,
     width: '60%',
     height : 40,
+    borderRadius: 50,
+  },
+  tabHeadingActiveLeft: {
+    backgroundColor: 'white',
+    color: '#7915c1',
     borderTopLeftRadius: 50,
-    borderBottomLeftRadius: 50,
+    borderBottomLeftRadius: 50
+  },
+  tabHeadingActiveRigth: {
+    backgroundColor: 'white',
+    color: '#7915c1',
     borderTopRightRadius: 50,
     borderBottomRightRadius: 50
   },
-  focus: {
-   color: '#223451',
-   fontSize: 16,
+  tabHeadingLeft: {
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 50,
+    borderBottomLeftRadius: 50
   },
+  tabHeadingRigth: {
+    backgroundColor: '#fff',
+    borderTopRightRadius: 50,
+    borderBottomRightRadius: 50
+  }
 });
