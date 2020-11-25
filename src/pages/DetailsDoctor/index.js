@@ -25,36 +25,15 @@ import HeaderCheckout from '../../components/HeaderCheckout';
 import api from '../../services/api';
 
 export default function DetailsDoctor({}) {
-  const [refreshing, setRefreshing] = React.useState(false);
-  const navigation = useNavigation();
   const route = useRoute();
+  const navigation = useNavigation();
+  const [refreshing, setRefreshing] = React.useState(false);
   const [doctor, setDoctor] = useState([]);
-  const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getDoctorDetails()
   }, [])
-
-  const onRefresh = React.useCallback(() => {
-    getDoctorDetails();
-  }, []);
-
-
-  function handleEvaluation () {
-    const doctorId = route.params ? route.params.doctorId : undefined;
-    navigation.navigate('Evaluation', {
-      doctorId,
-    })
-  }
-
-  const handleShedule = () => {
-    const doctorId = route.params ? route.params.doctorId : undefined;
-    navigation.navigate('Schedule', {
-      doctorId,
-      clinicId: doctor.clinic.id,
-    })
-  }
 
   const getDoctorDetails = async () => {
     try {
@@ -70,6 +49,25 @@ export default function DetailsDoctor({}) {
       console.log(err);
     }
   };
+
+  const onRefresh = React.useCallback(() => {
+    getDoctorDetails();
+  }, []);
+
+  function handleEvaluation () {
+    const doctorId = route.params ? route.params.doctorId : undefined;
+    navigation.navigate('Evaluation', {
+      doctorId,
+    })
+  }
+
+  const handleShedule = () => {
+    const doctorId = route.params ? route.params.doctorId : undefined;
+    navigation.navigate('Schedule', {
+      doctorId,
+      clinicId: doctor.clinic.id,
+    })
+  }
 
   return (
     <>

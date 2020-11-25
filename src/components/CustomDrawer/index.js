@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {
   DrawerItemList
 } from '@react-navigation/drawer';
@@ -21,8 +21,13 @@ import {
 } from './styles';
 
 import {signOut} from '../../services/auth';
+import api from '../../services/api';
 
 export default function CustomDrawer({...props}) {
+  const [path, setPath] = useState()
+  const [username, setUsername] = useState('')
+  const [surname, setSurname] = useState('')
+
 
   const handleLogout = async () => {
     try {
@@ -33,6 +38,19 @@ export default function CustomDrawer({...props}) {
     }
   };
 
+  const getUserAuthData = async () => {
+    const response = await api.get('/patientAuth/getUser');
+    setPath(response.data.path_avatar);
+    setUsername(response.data.username);
+    setSurname(response.data.surname);
+
+  };
+
+  useEffect(() => {
+    getUserAuthData()
+    console.log('aaaaaa');
+  }, [])
+
   return (
     <Container>
       <SafeAreaView>
@@ -41,11 +59,11 @@ export default function CustomDrawer({...props}) {
             <GoBackIcon />
           </ViewGoBackIcon>
           <IconCard>
-            <Image />
+            <Image source={{uri: path?? 'https://image.flaticon.com/icons/png/512/387/387561.png'}} resizeMode='cover'/>
           </IconCard>
 
           <Col>
-            <NameLabel>Thiago Henrique</NameLabel>
+            <NameLabel>{username?? 'Carregando'}</NameLabel>
             <Label>Editar</Label>
           </Col>
         </Card>

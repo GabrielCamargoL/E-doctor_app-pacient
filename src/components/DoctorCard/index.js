@@ -31,7 +31,7 @@ const DoctorCard = ({doctorId, doctorData, navigation})  => {
         elevation={8}
       >
         <IconCard>
-          <Image source={{uri: doctorData.path_avatar}} resizeMode="center"/>
+          <Image source={{uri: doctorData.path_avatar?? 'https://image.flaticon.com/icons/png/512/387/387561.png'}} resizeMode="center"/>
         </IconCard>
 
         <Data>

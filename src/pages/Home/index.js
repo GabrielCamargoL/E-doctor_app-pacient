@@ -26,41 +26,27 @@ export default function Home({ navigation }) {
   const [doctors, setDoctors] = useState([]);
   const [clinics, setClinics] = useState([]);
 
-  const isOpenDrawer = useIsDrawerOpen()
-
   useEffect(() => {
     getDoctors()
     getClinic()
   }, [navigation]);
+
+  const getDoctors = async () => {
+    const response = await api.get('/doctorAuth/index');
+    setDoctors(response.data)
+  }
+
+  const getClinic = async () => {
+    const response = await api.get('/clinicAuth/index');
+    setClinics(response.data)
+  }
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     getDoctors()
     getClinic()
     setRefreshing(false);
-
   }, []);
-
-  const getDoctors = async () => {
-    try {
-      const response = await api.get('/doctorAuth/index');
-      setDoctors(response.data)
-
-    }
-    catch (err) {
-      console.log(err);
-    }
-  }
-
-  const getClinic = async () => {
-    try {
-      const response = await api.get('/clinicAuth/index');
-      setClinics(response.data)
-    }
-    catch (err) {
-      console.log(err);
-    }
-  }
 
   return (
     <>

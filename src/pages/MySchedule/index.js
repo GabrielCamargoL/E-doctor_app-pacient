@@ -16,23 +16,12 @@ export default function MySchedule({ navigation }) {
   const [confirmedAppointments, setConfirmedAppointments] = useState([]);
   const [pendingAppointments, setPendingAppointments] = useState([]);
 
-  useEffect(() => {
-    getConfirmedAppointments()
-    getPendingAppointments()
-  }, [navigation]);
-
-  const onRefresh = React.useCallback(() => {
-    getConfirmedAppointments()
-    getPendingAppointments()
-  }, []);
-
   const getConfirmedAppointments = async () => {
     try {
       setRefreshing(true);
       const response = await api.get('/patientAuth/confirmedAppointments');
       setConfirmedAppointments(response.data)
       setRefreshing(false);
-
     }
     catch (err) {
       console.log(err);
@@ -51,6 +40,16 @@ export default function MySchedule({ navigation }) {
     }
   }
 
+  useEffect(() => {
+    getConfirmedAppointments()
+    getPendingAppointments()
+  }, [navigation]);
+
+  const onRefresh = React.useCallback(() => {
+    getConfirmedAppointments()
+    getPendingAppointments()
+  }, []);
+
   return (
     <>
       <Container
@@ -67,14 +66,21 @@ export default function MySchedule({ navigation }) {
                 <TabMenu>Agenda</TabMenu>
               </TabHeading>
             }>
-            {confirmedAppointments.map(doctor => (
-              <ScheduleCard
-                key={doctor.id}
-                navigation={navigation}
-                data={doctor}
-                doubtId={doctor.id}
-              />
-            ))}
+            {confirmedAppointments.length > 0 ? (
+              <>
+                {confirmedAppointments.map(doctor => (
+                  <ScheduleCard
+                    key={doctor.id}
+                    navigation={navigation}
+                    data={doctor}
+                    doubtId={doctor.id}
+                  />
+                ))}
+              </>
+            ):(
+              <Title>Sua agenda está vazia</Title>
+            )}
+
           </Tab>
           <Tab
             style={{backgroundColor:'#f1f1f1'}}
@@ -84,14 +90,20 @@ export default function MySchedule({ navigation }) {
               </TabHeading>
             }
             >
-            {pendingAppointments.map(doctor => (
-              <ScheduleCard
-                key={doctor.id}
-                navigation={navigation}
-                data={doctor}
-                doubtId={doctor.id}
-              />
-            ))}
+            {pendingAppointments.length > 0 ? (
+              <>
+                {pendingAppointments.map(doctor => (
+                  <ScheduleCard
+                    key={doctor.id}
+                    navigation={navigation}
+                    data={doctor}
+                    doubtId={doctor.id}
+                  />
+                ))}
+              </>
+            ):(
+              <Title>Não há solicitações pendentes</Title>
+            )}
           </Tab>
         </Tabs>
       </Container>

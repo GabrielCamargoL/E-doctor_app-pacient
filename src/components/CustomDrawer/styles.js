@@ -21,19 +21,21 @@ export const Card = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   align-self: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   margin-bottom: 10%;
 `;
 
 export const IconCard = styled.View`
-  width: 40%;
-  background-color: #F1f;
+  width: 30%;
+  /* background-color: #F1f; */
 `;
 
 export const Data = styled.View`
   align-items: center;
   width: 70%;
   padding: 0 10px;
+  border-radius: 50%
+
 `;
 
 export const NameLabel = styled.Text`

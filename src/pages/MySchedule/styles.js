@@ -14,6 +14,7 @@ export const Title = styled.Text`
   font-weight: bold;
   font-size: 18;
   color: #767272;
+  text-align: center
 `;
 
 export const TabMenu = styled.Text`

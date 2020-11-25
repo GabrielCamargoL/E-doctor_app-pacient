@@ -23,9 +23,9 @@ import { getIdKey } from '../../services/auth';
 import ModalMedicalInfo from '../../components/ModalMedicalInfo'
 
 export default function Shedule({}) {
-  const [refreshing, setRefreshing] = useState(false);
-  const navigation = useNavigation();
   const route = useRoute();
+  const navigation = useNavigation();
+  const [refreshing, setRefreshing] = useState(false);
   const [user, setUser] = useState([])
   const [confirmedAppointments, setConfirmedAppointments] = useState([]);
   const [items, setItems] = useState({});
@@ -49,14 +49,9 @@ export default function Shedule({}) {
     getUserAuthData()
   }, []);
 
-
   const getUserAuthData = async () => {
-    try {
-      const response = await api.get('/patientAuth/getUser');
-      setUser(response.data);
-    } catch (err) {
-      console.log(`aaaaaaaaaa ${err}`);
-    }
+    const response = await api.get('/patientAuth/getUser');
+    setUser(response.data);
   };
 
   const getAppointments = async () => {
@@ -69,10 +64,6 @@ export default function Shedule({}) {
     const doctorId = route.params ? route.params.doctorId : undefined;
     const clinicId = route.params ? route.params.clinicId : undefined;
 
-    // const { status } = await api.get('medicalInfo/show')
-    // if (status === 204) {
-    //   setShowModal(true);
-    // }
     const data = {
       clinic_id: doctorId,
       doctor_id: clinicId,
@@ -82,14 +73,9 @@ export default function Shedule({}) {
 
     try {
       const response = await api.post('appointment/create', data)
-
-      if (response.status) {
-        console.log('deu certo');
-      }
     } catch (error) {
       console.log(error);
     }
-
   }
 
   const handleDayPress = (day) => {
@@ -175,6 +161,11 @@ export default function Shedule({}) {
       </View>
     )
   }
+
+  // const { status } = await api.get('medicalInfo/show')
+    // if (status === 204) {
+    //   setShowModal(true);
+    // }
 
   return (
     <>

@@ -78,13 +78,11 @@ export default function RegisterPatient({ navigation }) {
           <InputContainer>
             <LabelInput> CPF </LabelInput>
             <Input
-              placeholder="999999999-99"
+              placeholder="CPF"
               placeholderTextColor="#A8A8A8"
               keyboardType="default"
-              password={true}
               value={cpf}
               onChangeText={setCpf}
-              secureTextEntry={true}
             />
           </InputContainer>
         </Row>
@@ -93,7 +91,7 @@ export default function RegisterPatient({ navigation }) {
           <InputContainer>
             <LabelInput>E-mail</LabelInput>
             <Input
-              placeholder="josé@email.com"
+              placeholder="@email.com"
               placeholderTextColor="#A8A8A8"
               keyboardType="email-address"
               value={email}
@@ -104,9 +102,9 @@ export default function RegisterPatient({ navigation }) {
 
         <Row>
           <InputContainer>
-            <LabelInput>Telefone</LabelInput>
+            <LabelInput>Celular</LabelInput>
             <Input
-              placeholder="99999-9999"
+              placeholder="Número"
               placeholderTextColor="#A8A8A8"
               keyboardType="phone-pad"
               value={phone}

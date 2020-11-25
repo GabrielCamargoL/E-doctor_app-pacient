@@ -23,7 +23,6 @@ export default function Dobout({navigation}) {
       const response = await api.get('patientAuth/doubt/index');
       setDoubt(response.data)
       setRefreshing(false);
-
     }
     catch (err) {
       console.log(err);

@@ -60,35 +60,6 @@ export default function RegisterStep3({ navigation, route }) {
     });
   }
 
-  const handleSignUp = async () => {
-    try {
-      const response = await api.post('/patientAuth/signUp', {
-        "username": patientInfo.username,
-        "surname": patientInfo.surname,
-        "email": patientInfo.email,
-        "password": patientInfo.password,
-        "cpf": patientInfo.cpf,
-        "genre": patientInfo.genre,
-        "birthday": patientInfo.birthday,
-        "phone": patientInfo.phone,
-        "zip_code": zip_code,
-        "house_number": house_number,
-        "complement_address": complement_address,
-        "state": uf,
-        "city": city,
-        "neighborhood": neighborhood,
-        "street": street,
-      })
-
-      await AsyncStorage.setItem('token', response.data.token);
-      navigation.navigate('Home')
-    }
-    catch(err) {
-      Alert.alert("Error ao realizar cadastro")
-      console.log(err);
-    }
-  }
-
   const handleHouseNumber = () => {
     !houseWithoutNumber ? setHouseNumber('SN'): setHouseNumber('')
   }
@@ -243,7 +214,7 @@ export default function RegisterStep3({ navigation, route }) {
         </Row>
 
         <ButtonEditView>
-          <ButtonEdit onPress={handleSignUp}>
+          <ButtonEdit onPress={handleAdvance}>
             <ButtonEditText>Cadastrar</ButtonEditText>
           </ButtonEdit>
         </ButtonEditView>

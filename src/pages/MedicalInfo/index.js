@@ -33,28 +33,6 @@ export default function MedicalInfo() {
   const [disease, setDisease] = useState('')
   const [consult, setConsult] = useState(false)
 
-  const onRefresh = React.useCallback(() => {
-    getMedicalInfo()
-  }, []);
-
-  const getMedicalInfo = async () => {
-    try {
-      setRefreshing(true);
-      const { data } = await api.get('medicalInfo/show');
-
-      setWeight(data.weight)
-      setHeight(data.height)
-      setAllergy(data.allergy)
-      setMedicine(data.personal_medicine)
-      setBloodType(data.blood_type)
-      setDisease(data.health_problems)
-      setRefreshing(false);
-
-    } catch (error) {
-      console.log('error', error);
-    }
-  }
-
   const handleMedicalInfo = async () => {
     try {
       setRefreshing(true);
@@ -75,12 +53,32 @@ export default function MedicalInfo() {
             { text: 'Fechar',  onPress: consult ? navigation.goBack() : null }
           ],
           { cancelable: false }
-        )
+          )
+        }
+      } catch (error) {
+        console.log(error);
       }
+    }
+
+  const getMedicalInfo = async () => {
+    try {
+      setRefreshing(true);
+      const { data } = await api.get('medicalInfo/show');
+      setWeight(data.weight)
+      setHeight(data.height)
+      setAllergy(data.allergy)
+      setMedicine(data.personal_medicine)
+      setBloodType(data.blood_type)
+      setDisease(data.health_problems)
+      setRefreshing(false);
     } catch (error) {
-      console.log(error);
+      console.log('error', error);
     }
   }
+
+  const onRefresh = React.useCallback(() => {
+    getMedicalInfo()
+  }, []);
 
   useEffect(() => {
     if (route.params) {
@@ -100,7 +98,7 @@ export default function MedicalInfo() {
 
         <LabelInput>Peso</LabelInput>
         <Input
-          placeholder="XX.XX kg"
+          placeholder="KG"
           keyboardType="numeric"
           returnKeyType="go"
           placeholderTextColor="#A8A8A8"
@@ -110,7 +108,7 @@ export default function MedicalInfo() {
 
         <LabelInput>Altura</LabelInput>
         <Input
-          placeholder="X.XX metros"
+          placeholder="MT"
           keyboardType="numeric"
           returnKeyType="go"
           placeholderTextColor="#A8A8A8"
@@ -120,7 +118,7 @@ export default function MedicalInfo() {
 
         <LabelInput>Tipo Sanguíneo</LabelInput>
         <Input
-          placeholder="X"
+          placeholder="AB"
           placeholderTextColor="#A8A8A8"
           value={bloodType?? ''}
           onChangeText={setBloodType}
