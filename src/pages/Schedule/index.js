@@ -73,6 +73,17 @@ export default function Shedule({}) {
 
     try {
       const response = await api.post('appointment/create', data)
+
+      if (response.status === 200) {
+        Alert.alert(
+          'Sucesso',
+          'Consulta Agendada',
+          [
+            { text: 'Fechar',  onPress: navigation.navigate('MySchedule') }
+          ],
+          { cancelable: false }
+        )
+      }
     } catch (error) {
       console.log(error);
     }
