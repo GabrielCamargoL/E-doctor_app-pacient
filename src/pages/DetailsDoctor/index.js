@@ -41,9 +41,9 @@ export default function DetailsDoctor({}) {
       const doctorId = route.params ? route.params.doctorId : undefined;
       const response = await api.get(`/doctorAuth/getUser/${doctorId}`);
 
-      if (response.data) {
-        setDoctor(response.data);
-      }
+      setDoctor(response.data);
+      console.log(response.data);
+
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -92,17 +92,15 @@ export default function DetailsDoctor({}) {
                 ))}
               </CompanyRate>
             </SectionCompanyData>
-            <SectionCompanyData>
-              <HeaderText>{doctor.username?? 'Nome do Consultório'}</HeaderText>
-              <FlatButton onPress={() => handleEvaluation()}>
-                <FlatButtonText>Avaliações</FlatButtonText>
-              </FlatButton>
-            </SectionCompanyData>
+
+              {/* <HeaderText>{doctor.clinic.name === null ? 'Nome do Consultório' : doctor.clinic.name}</HeaderText> */}
+            <FlatButton onPress={() => handleEvaluation()}>
+              <FlatButtonText>Avaliações</FlatButtonText>
+            </FlatButton>
             <Row>
               <DetailsText>
-                Lettuce is an annual plant of the daisy family,
-                Asteraceae. It is most often grown as a leaf vegetable,
-                but sometimes for its stem and seeds
+                Meu propósito como médico Cardiologista é conscientizar as
+                pessoas da importância dos cuidados com a própria saúde.
               </DetailsText>
             </Row>
         </ScrollView>

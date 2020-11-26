@@ -7,7 +7,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import {
   Container,
-  Col,
   Card,
   IconCard,
   Image,
@@ -62,10 +61,8 @@ export default function CustomDrawer({...props}) {
             <Image source={{uri: path?? 'https://image.flaticon.com/icons/png/512/387/387561.png'}} resizeMode='cover'/>
           </IconCard>
 
-          <Col>
-            <NameLabel>{username?? 'Carregando'}</NameLabel>
-            <Label>Editar</Label>
-          </Col>
+          <NameLabel>{username?? 'Carregando'} {surname?? 'Carregando'}</NameLabel>
+          <Label>Editar</Label>
         </Card>
         <DrawerItemList {...props}/>
         <TouchableOptions onPress={handleLogout}>

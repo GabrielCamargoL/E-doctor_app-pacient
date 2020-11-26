@@ -9,36 +9,21 @@ export const Container = styled.SafeAreaView.attrs({
   background-color: #F1f1f1;
 `;
 
-export const Col = styled.View`
-  flex-direction: column;
-  justify-content: space-evenly;
-`;
 
 export const Card = styled.TouchableOpacity`
   width: 100%;
-  height: 145px;
+  height: 195px;
   background-color: #FFF;
-  flex-direction: row;
   align-items: center;
-  align-self: center;
-  justify-content: space-around;
   margin-bottom: 10%;
 `;
 
 export const IconCard = styled.View`
-  width: 30%;
   /* background-color: #F1f; */
 `;
 
-export const Data = styled.View`
-  align-items: center;
-  width: 70%;
-  padding: 0 10px;
-  border-radius: 50%
-
-`;
-
 export const NameLabel = styled.Text`
+  margin-top: 10;
   font-size: ${fonts.medium};
   color: ${colors.black}
 `;
@@ -49,8 +34,9 @@ export const Label = styled.Text`
 `;
 
 export const Image = styled.Image`
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50;
 `;
 
 export const ViewIcon = styled.TouchableOpacity`

@@ -45,7 +45,10 @@ export const DetailsText = styled.Text`
   color: #000;
   font-size: 16px;
   font-family: Roboto;
-  margin-left: 20
+  text-align: justify;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px
 `;
 
 export const Row = styled.View`
@@ -75,8 +78,6 @@ export const Button = styled.TouchableOpacity`
 
 export const FlatButton = styled.TouchableOpacity`
   color: #111;
-  justify-content: center;
-  align-items: center;
   margin: 10px;
   border-radius: 5px;
 `;
@@ -94,6 +95,5 @@ export const FlatButtonText = styled.Text`
   color: ${colors.primary};
   font-size: ${fonts.input};
   font-weight: bold;
-  font-family: Roboto-Bold;
-  text-transform: capitalize;
+  text-align: right
 `;

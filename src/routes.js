@@ -30,6 +30,9 @@ import DetailsDoctor from './pages/DetailsDoctor';
 import MedicalInfo from './pages/MedicalInfo';
 import Doubt from './pages/Doubt'
 
+import Prescriptions from './pages/Prescriptions'
+import PrescriptionsDetails from './pages/PrescriptionsDetails'
+
 import RegisterDependent from './pages/RegisterDependent';
 
 import ProfilePatient from './pages/ProfilePatient';
@@ -64,11 +67,11 @@ function DrawerNavigator() {
         component={Doubt}
       />
 
-      {/* <Drawer.Screen
+      <Drawer.Screen
         options={{ title: 'Prescrições' }}
-        name="AA"
-        component={Home}
-      /> */}
+        name="Prescriptions"
+        component={Prescriptions}
+      />
 
        <Drawer.Screen
         options={{ title: 'Ficha Médica' }}
@@ -120,6 +123,12 @@ export default function Routes() {
         options={{ headerShown: false }}
         name="DetailsDoctor"
         component={DetailsDoctor}
+      />
+
+      <Stack.Screen
+        options={{ headerShown: true, title: '' }}
+        name="PrescriptionsDetails"
+        component={PrescriptionsDetails}
       />
 
       <Stack.Screen
