@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import {
   Container,
@@ -10,39 +10,60 @@ import {
   BadgeLabel,
   Data,
   DateLabel,
-  SpecialtyLabel
+  SpecialtyLabel,
 } from './styles';
 
 import moment from 'moment';
-import 'moment/min/locales'
+import 'moment/min/locales';
 
-import ModalShedule from '../ModalShedule'
+import ModalShedule from '../ModalShedule';
 
-const ScheduleCard = ({doubtId, data, navigation})  => {
+const ScheduleCard = ({ data, navigation, key, doneAppointment }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleShedule = async () => {
-    setShowModal(true);
-  }
+    if (doneAppointment)
+      return navigation.navigate('PrescriptionsDetails', { key });
+    if (data.status != 'Rejected') setShowModal(true);
+  };
 
   return (
     <>
       <Container>
-        <Card
-          key={doubtId}
-          onPress={handleShedule}
-        >
+        <Card key={key} onPress={handleShedule}>
           <IconCard>
-            <Image source={{uri: data.doctor.path_avatar}} resizeMode="center"/>
+            <Image
+              source={{ uri: data.doctor.path_avatar }}
+              resizeMode="center"
+            />
           </IconCard>
           <Data>
-            <NameLabel>{data.doctor.username} {data.doctor.surname}</NameLabel>
+            <NameLabel>
+              {data.doctor.username} {data.doctor.surname}
+            </NameLabel>
             <SpecialtyLabel>{data.doctor.specialty}</SpecialtyLabel>
 
-            <DateLabel>{moment(data.consultation_schedule).locale('pt-br').format('llll')}</DateLabel>
+            <DateLabel>
+              {moment(data.consultation_schedule)
+                .locale('pt-br')
+                .format('llll')}
+            </DateLabel>
           </Data>
-          <Badge color={data.status == 'Pending' ? '#FB2' : '#09C1FB'}>
-            <BadgeLabel>{data.status == 'Pending' ? 'Solicitado' : 'Agendado'}</BadgeLabel>
+          <Badge
+            color={
+              data.status == 'Pending'
+                ? '#FB2'
+                : data.status == 'Rejected'
+                ? '#F34'
+                : '#09C1FB'
+            }>
+            <BadgeLabel>
+              {data.status == 'Pending'
+                ? 'Solicitado'
+                : data.status == 'Rejected'
+                ? 'Recusado'
+                : 'Agendado'}
+            </BadgeLabel>
           </Badge>
         </Card>
       </Container>
