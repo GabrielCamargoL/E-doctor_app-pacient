@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, RefreshControl } from 'react-native';
 import PushNotification from 'react-native-push-notification';
 import Ws from '@adonisjs/websocket-client';
+import messaging from '@react-native-firebase/messaging';
 import { Tabs, TabHeading, Tab } from 'native-base';
 
 import { useIsDrawerOpen } from '@react-navigation/drawer';
@@ -31,22 +32,34 @@ export default function Home({ navigation }) {
     setToken(await getToken());
   };
 
-  const ws = Ws(`http://192.168.0.150:3001`, {
+  const ws = Ws(`ws://192.168.0.150:3001`, {
     path: 'adonis-ws',
   });
   ws.withJwtToken(token).connect();
-  // const topic = ws.subscribe(`client:${idUser}`);
+  const topic = ws.subscribe(`user:${idUser}`);
 
   const newNotification = (messageData) => {
+    console.log(messageData);
     PushNotification.localNotificationSchedule({
-      title: `${messageData} enviou uma nova mensagem`,
-      message: messageData.message,
+      message: messageData,
       date: new Date(Date.now() + 1 * 1000),
       allowWhileIdle: false,
     });
   };
 
+  async function requestUserPermission() {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      console.log('Authorization status:', authStatus);
+    }
+  }
+
   useEffect(() => {
+    requestUserPermission();
     getPropWs();
     getUserId();
     getDoctors();
@@ -66,8 +79,10 @@ export default function Home({ navigation }) {
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     getPropWs();
+    getUserId();
     getDoctors();
     getClinic();
+    requestUserPermission();
     setRefreshing(false);
   }, []);
 
@@ -76,16 +91,20 @@ export default function Home({ navigation }) {
       const response = await api.get('/patientAuth/getUser');
 
       const { id } = response.data;
-      await setIdKey(id.toString());
       setIdUser(id);
     } catch (err) {
       console.log(err);
     }
   };
 
-  topic.on('new:message', (message) => {
-    newNotification(message);
-    return;
+  topic.on('update:appointment', (message) => {
+    if (message === 'Accepted') {
+      newNotification('Sua consulta foi confirmada');
+    } else if (message === 'Rejected') {
+      newNotification('Sua consulta foi rejeitada');
+    } else {
+      return;
+    }
   });
 
   return (
