@@ -1,23 +1,21 @@
 import styled from 'styled-components';
 
-import {fonts, colors} from '../../styles'
+import { fonts, colors } from '../../styles';
 
 export const Container = styled.View.attrs({
   paddingHorizontal: 40,
 })`
   flex: 1;
-  justify-content: space-around;
 `;
 
-export const Header = styled.View.attrs({
-})`
+export const Header = styled.View.attrs({})`
   flex: 1;
   justify-content: space-evenly;
 `;
 
-export const Main = styled.View.attrs({
-})`
+export const Main = styled.View.attrs({})`
   flex: 1;
+  margin-top: 30px;
 `;
 
 export const Col = styled.View`
@@ -42,7 +40,18 @@ export const ViewLogo = styled.View`
   border-radius: 10px;
   background: #f1f1f1;
   align-self: center;
-  margin-bottom: 10px
+  margin-bottom: 10px;
+`;
+
+export const Prescription = styled.View.attrs({
+  borderBottomWidth: 0.5,
+  paddingHorizontal: 10,
+})`
+  width: 100%;
+  background: #e9ecef;
+  align-self: center;
+  justify-content: center;
+  margin: 5px;
 `;
 
 export const Title = styled.Text`
@@ -54,26 +63,24 @@ export const Title = styled.Text`
   font-weight: bold;
   font-size: 18;
   color: #767272;
-  text-align: center
+  text-align: center;
 `;
 
 export const Label = styled.Text`
   margin-top: 10;
   font-family: Roboto-Regular;
   font-size: ${fonts.medium};
-  color: ${colors.black}
+  color: ${colors.black};
 `;
 
 export const LabelPDF = styled.Text`
   font-family: Roboto-Regular;
   font-size: ${fonts.medium};
-  color: ${colors.cyan}
+  color: ${colors.cyan};
 `;
 
 export const NameLabel = styled.Text`
   font-family: Roboto-Regular;
   font-size: ${fonts.input};
-  color: ${colors.black}
+  color: ${colors.black};
 `;
-
-

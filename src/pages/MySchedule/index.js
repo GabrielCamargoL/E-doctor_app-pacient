@@ -57,7 +57,7 @@ export default function MySchedule({ navigation }) {
                   }>
                   <TextButton>X</TextButton>
                 </Close>
-                <Title>Consultas Finalizadas</Title>
+                <Title>Consultas Finalizadas {appointment.id}</Title>
                 <ScheduleCard
                   key={appointment.id}
                   navigation={navigation}

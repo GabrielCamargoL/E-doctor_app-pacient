@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, RefreshControl } from 'react-native';
+import { StyleSheet, RefreshControl, AsyncStorage } from 'react-native';
 import PushNotification from 'react-native-push-notification';
-import Ws from '@adonisjs/websocket-client';
 import messaging from '@react-native-firebase/messaging';
 import { Tabs, TabHeading, Tab } from 'native-base';
 
@@ -32,14 +31,7 @@ export default function Home({ navigation }) {
     setToken(await getToken());
   };
 
-  const ws = Ws(`ws://192.168.0.150:3001`, {
-    path: 'adonis-ws',
-  });
-  ws.withJwtToken(token).connect();
-  const topic = ws.subscribe(`user:${idUser}`);
-
   const newNotification = (messageData) => {
-    console.log(messageData);
     PushNotification.localNotificationSchedule({
       message: messageData,
       date: new Date(Date.now() + 1 * 1000),
@@ -82,6 +74,7 @@ export default function Home({ navigation }) {
     getUserId();
     getDoctors();
     getClinic();
+    getTokenFirebase();
     requestUserPermission();
     setRefreshing(false);
   }, []);
@@ -97,15 +90,18 @@ export default function Home({ navigation }) {
     }
   };
 
-  topic.on('update:appointment', (message) => {
-    if (message === 'Accepted') {
-      newNotification('Sua consulta foi confirmada');
-    } else if (message === 'Rejected') {
-      newNotification('Sua consulta foi rejeitada');
-    } else {
-      return;
+  const getTokenFirebase = async () => {
+    let fcmToken = await AsyncStorage.getItem('fcmToken');
+    console.log('fcmToken from AsyncStorage: ', fcmToken);
+    if (!fcmToken) {
+      fcmToken = await messaging().getToken();
+      if (fcmToken) {
+        console.log('fcmToken from firebase: ', fcmToken);
+        await AsyncStorage.setItem('fcmToken', fcmToken);
+      }
     }
-  });
+    return fcmToken;
+  };
 
   return (
     <>

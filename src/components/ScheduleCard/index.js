@@ -22,8 +22,11 @@ const ScheduleCard = ({ data, navigation, key, doneAppointment }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleShedule = async () => {
+    console.log(key);
     if (doneAppointment)
-      return navigation.navigate('PrescriptionsDetails', { key });
+      return navigation.navigate('PrescriptionsDetails', {
+        appointmentId: data.id,
+      });
     if (data.status != 'Rejected') setShowModal(true);
   };
 
