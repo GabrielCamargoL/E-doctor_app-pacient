@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
 
 import { useRoute } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 import {
   Container,
@@ -9,25 +10,37 @@ import {
   HeaderLogo,
   Prescription,
   Row,
+  Col,
   Header,
   Main,
   Title,
   Label,
   NameLabel,
   LabelPDF,
+  PrescriptionHeader,
+  PrescriptionTitle,
+  PrescriptionLabel,
 } from './styles';
 
 import api from '../../services/api';
+import moment from 'moment';
+import 'moment/min/locales';
 
 export default function PrescriptionsDetails({}) {
   const route = useRoute();
   const [prescription, setPrescription] = useState([]);
+  const [doctor, setDoctor] = useState([]);
+  const dateConsult = route.params ? route.params.dateConsult : undefined;
 
   const getPrescription = async () => {
     const appointmentId = route.params ? route.params.appointmentId : undefined;
+    const doctorId = route.params ? route.params.doctorId : undefined;
+
     const { data } = await api.get(`/prescription/show/${appointmentId}`);
+    const response = await api.get(`/doctorAuth/getUser/${doctorId}`);
+
     setPrescription(data);
-    console.log(data);
+    setDoctor(response.data);
   };
 
   useEffect(() => {
@@ -39,15 +52,17 @@ export default function PrescriptionsDetails({}) {
       <Container>
         <Header>
           <Title>Resumo da Consulta</Title>
-          <HeaderLogo
-            source={{
-              uri: 'https://image.flaticon.com/icons/png/512/387/387561.png',
-            }}
-          />
-          <NameLabel>Oftalmologista</NameLabel>
+          <HeaderLogo source={{ uri: doctor.path_avatar }} />
+          <NameLabel>{doctor.specialty}</NameLabel>
           <Row>
-            <NameLabel>Dr. Nelson Mandela</NameLabel>
-            <NameLabel>08/09/2020</NameLabel>
+            <NameLabel>
+              {doctor.username} {doctor.surname}
+            </NameLabel>
+            <NameLabel>
+              {dateConsult
+                ? moment(dateConsult).locale('pt-br').format('L')
+                : ''}
+            </NameLabel>
           </Row>
         </Header>
         <Main>
@@ -56,17 +71,22 @@ export default function PrescriptionsDetails({}) {
             {/* <LabelPDF>Gerar PDF</LabelPDF> */}
           </Row>
           {prescription.map((prescription) => (
-            <>
-              <Prescription>
-                <Label>{prescription.name}</Label>
-                <Label>{prescription.hours}</Label>
-                <Label>{prescription.days} dia</Label>
-                <Label>{prescription.quantity}</Label>
-                <Label>{prescription.unit}</Label>
-              </Prescription>
-            </>
+            <Prescription key={prescription.id}>
+              <PrescriptionHeader>
+                <PrescriptionTitle>
+                  <Icon name="medkit" size={56} />
+                </PrescriptionTitle>
+                <Col style={{ marginLeft: 20 }}>
+                  <PrescriptionTitle>{prescription.name}</PrescriptionTitle>
+                  <PrescriptionLabel>{prescription.quantity}</PrescriptionLabel>
+                  <PrescriptionLabel>{prescription.unit}</PrescriptionLabel>
+                </Col>
+              </PrescriptionHeader>
+              <PrescriptionLabel>{prescription.hours}</PrescriptionLabel>
+              <PrescriptionLabel>{prescription.days} dia</PrescriptionLabel>
+            </Prescription>
           ))}
-          <Label>Resultados de Exame:</Label>
+          {/* <Label>Resultados de Exame:</Label> */}
         </Main>
       </Container>
     </ScrollView>

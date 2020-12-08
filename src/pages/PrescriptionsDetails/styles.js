@@ -44,14 +44,37 @@ export const ViewLogo = styled.View`
 `;
 
 export const Prescription = styled.View.attrs({
-  borderBottomWidth: 0.5,
-  paddingHorizontal: 10,
+  paddingHorizontal: 20,
+  paddingVertical: 10,
 })`
   width: 100%;
-  background: #e9ecef;
+  border-radius: 20px;
+  background: #55b0f3;
   align-self: center;
   justify-content: center;
-  margin: 5px;
+  margin-top: 20px;
+`;
+
+export const PrescriptionHeader = styled.View.attrs({
+  borderBottomWidth: 0.6,
+  borderBottomColor: '#fff',
+})`
+  flex-direction: row;
+  margin-bottom: 30px;
+`;
+
+export const PrescriptionTitle = styled.Text`
+  font-family: Roboto-Bold;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18;
+  color: #fff;
+`;
+
+export const PrescriptionLabel = styled.Text`
+  font-family: Roboto-Bold;
+  font-size: 14;
+  color: #fff;
 `;
 
 export const Title = styled.Text`

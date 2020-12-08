@@ -16,16 +16,18 @@ import {
 import moment from 'moment';
 import 'moment/min/locales';
 
+import { colors } from '../../styles';
 import ModalShedule from '../ModalShedule';
 
 const ScheduleCard = ({ data, navigation, key, doneAppointment }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleShedule = async () => {
-    console.log(key);
     if (doneAppointment)
       return navigation.navigate('PrescriptionsDetails', {
         appointmentId: data.id,
+        doctorId: data.doctor_id,
+        dateConsult: data.consultation_schedule,
       });
     if (data.status != 'Rejected') setShowModal(true);
   };
@@ -55,16 +57,20 @@ const ScheduleCard = ({ data, navigation, key, doneAppointment }) => {
           <Badge
             color={
               data.status == 'Pending'
-                ? '#FB2'
+                ? colors.yellow
                 : data.status == 'Rejected'
-                ? '#F34'
-                : '#09C1FB'
+                ? colors.danger
+                : data.status == 'Done'
+                ? colors.success
+                : colors.cyan
             }>
             <BadgeLabel>
               {data.status == 'Pending'
                 ? 'Solicitado'
                 : data.status == 'Rejected'
                 ? 'Recusado'
+                : data.status == 'Done'
+                ? 'Finalizado'
                 : 'Agendado'}
             </BadgeLabel>
           </Badge>

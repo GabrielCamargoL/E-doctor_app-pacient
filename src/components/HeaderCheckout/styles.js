@@ -27,7 +27,7 @@ export const ViewInput = styled.View`
 export const Header = styled.ImageBackground.attrs({})`
   position: relative;
   width: 100%;
-  height: ${props => (props.large ? '316px' : '133px')};
+  height: ${(props) => (props.large ? '316px' : '133px')};
   background-color: #c8c8c8;
   justify-content: flex-end;
   align-items: center;
@@ -69,4 +69,3 @@ export const FavoriteIcon = styled(Icon).attrs({
   top: 10px;
   right: 10px;
 `;
-

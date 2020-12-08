@@ -49,23 +49,28 @@ export default function MySchedule({ navigation }) {
       <>
         {confirmedAppointments.length > 0 ? (
           <>
-            {confirmedAppointments.map((appointment) => (
-              <Container>
-                <Close
-                  onPress={() =>
-                    setShowDoneAppointments((prevState) => !prevState)
-                  }>
-                  <TextButton>X</TextButton>
-                </Close>
-                <Title>Consultas Finalizadas {appointment.id}</Title>
-                <ScheduleCard
-                  key={appointment.id}
-                  navigation={navigation}
-                  data={appointment}
-                  doneAppointment={true}
-                />
-              </Container>
-            ))}
+            <Container>
+              <Close
+                onPress={() =>
+                  setShowDoneAppointments((prevState) => !prevState)
+                }>
+                <TextButton>X</TextButton>
+              </Close>
+              <Title>Consultas Finalizadas</Title>
+              {confirmedAppointments.map(
+                (appointment) =>
+                  appointment.status == 'Done' && (
+                    <>
+                      <ScheduleCard
+                        key={appointment.id}
+                        navigation={navigation}
+                        data={appointment}
+                        doneAppointment={true}
+                      />
+                    </>
+                  ),
+              )}
+            </Container>
           </>
         ) : (
           <Title>Nenhuma consulta finalizada</Title>
@@ -95,14 +100,17 @@ export default function MySchedule({ navigation }) {
               }>
               {confirmedAppointments.length > 0 ? (
                 <>
-                  {confirmedAppointments.map((doctor) => (
-                    <ScheduleCard
-                      key={doctor.id}
-                      navigation={navigation}
-                      data={doctor}
-                      doubtId={doctor.id}
-                    />
-                  ))}
+                  {confirmedAppointments.map(
+                    (appointment) =>
+                      appointment.status !== 'Done' && (
+                        <ScheduleCard
+                          key={appointment.id}
+                          navigation={navigation}
+                          data={appointment}
+                          doubtId={appointment.id}
+                        />
+                      ),
+                  )}
                 </>
               ) : (
                 <Title>Sua agenda está vazia</Title>
@@ -137,7 +145,9 @@ export default function MySchedule({ navigation }) {
       </Container>
       <Button
         onPress={() => setShowDoneAppointments((prevState) => !prevState)}>
-        <TextButton>Consultas Finalizadas</TextButton>
+        <TextButton>
+          {!showDoneAppointments ? 'Consultas Finalizadas' : 'Fechar'}
+        </TextButton>
       </Button>
     </>
   );
