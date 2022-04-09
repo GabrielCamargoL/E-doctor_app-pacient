@@ -19,7 +19,7 @@
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-react": "^7.20.0",
     "lottie-react-native": "^3.4.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.31",
     "native-base": "^2.13.14",
     "react": "^16.13.1",
